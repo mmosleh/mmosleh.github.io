@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import NetworkHero from "../components/NetworkHero.astro";
 import { getCollection } from "astro:content";
 
 const SCHOLAR_URL = "https://scholar.google.com/citations?user=vVg9g0MAAAAJ";
@@ -20,6 +21,29 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       </nav>
     </div>
   </header>
+
+  <!-- Hero: animated network on Oxford-blue -->
+  <NetworkHero>
+    <div class="h-[60vh] min-h-[420px] flex items-end" style="background: linear-gradient(180deg, transparent 0%, var(--color-oxford) 92%);">
+      <div class="max-w-4xl mx-auto px-6 pb-14 w-full">
+        <p class="uppercase tracking-[0.2em] text-xs mb-3" style="color: var(--color-gold)">
+          Networks &middot; Misinformation &middot; Collective behaviour
+        </p>
+        <h1 class="h-display text-4xl sm:text-5xl lg:text-6xl text-white leading-tight max-w-2xl">
+          Mohsen Mosleh
+        </h1>
+        <p class="mt-4 text-lg max-w-xl" style="color: rgba(233,228,216,0.85)">
+          Researching how social networks and online platforms shape the spread
+          of (mis)information, cooperation, and collective behaviour.
+        </p>
+      </div>
+    </div>
+  </NetworkHero>
+  <style is:global>
+    [data-network-host] {
+      background-color: var(--color-oxford);
+    }
+  </style>
 
   <main class="max-w-4xl mx-auto px-6">
     <!-- About / intro -->
