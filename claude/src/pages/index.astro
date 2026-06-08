@@ -10,8 +10,14 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
 ---
 
 <BaseLayout>
+  <!-- Calm drifting network, fixed behind the entire page -->
+  <NetworkHero />
+
   <!-- Header / nav -->
-  <header class="border-b" style="border-color: var(--color-rule)">
+  <header
+    class="sticky top-0 z-10 border-b backdrop-blur-md"
+    style="border-color: var(--color-rule); background-color: rgba(251,250,247,0.82)"
+  >
     <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
       <a href="/" class="h-display text-lg" style="color: var(--color-oxford)">Mohsen Mosleh</a>
       <nav class="flex gap-6 text-sm">
@@ -22,30 +28,24 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
     </div>
   </header>
 
-  <!-- Hero: animated network on Oxford-blue -->
-  <NetworkHero>
-    <div class="h-[60vh] min-h-[420px] flex items-end" style="background: linear-gradient(180deg, transparent 0%, var(--color-oxford) 92%);">
-      <div class="max-w-4xl mx-auto px-6 pb-14 w-full">
-        <p class="uppercase tracking-[0.2em] text-xs mb-3" style="color: var(--color-gold)">
-          Networks &middot; Misinformation &middot; Collective behaviour
-        </p>
-        <h1 class="h-display text-4xl sm:text-5xl lg:text-6xl text-white leading-tight max-w-2xl">
-          Mohsen Mosleh
-        </h1>
-        <p class="mt-4 text-lg max-w-xl" style="color: rgba(233,228,216,0.85)">
-          Researching how social networks and online platforms shape the spread
-          of (mis)information, cooperation, and collective behaviour.
-        </p>
-      </div>
-    </div>
-  </NetworkHero>
-  <style is:global>
-    [data-network-host] {
-      background-color: var(--color-oxford);
-    }
-  </style>
+  <!-- Intro strip over the network -->
+  <div class="max-w-4xl mx-auto px-6 pt-14 pb-8">
+    <p class="uppercase tracking-[0.2em] text-xs mb-3" style="color: var(--color-gold)">
+      Networks &middot; Misinformation &middot; Collective behaviour
+    </p>
+    <h1 class="h-display text-4xl sm:text-5xl text-white leading-tight max-w-2xl drop-shadow-sm">
+      Mohsen Mosleh
+    </h1>
+    <p class="mt-4 text-lg max-w-xl" style="color: rgba(255,255,255,0.82)">
+      Researching how social networks and online platforms shape the spread
+      of (mis)information, cooperation, and collective behaviour.
+    </p>
+  </div>
 
-  <main class="max-w-4xl mx-auto px-6">
+  <main
+    class="max-w-4xl mx-auto px-6 sm:px-10 rounded-t-2xl backdrop-blur-md ring-1"
+    style="background-color: rgba(251,250,247,0.9); --tw-ring-color: rgba(255,255,255,0.08)"
+  >
     <!-- About / intro -->
     <section id="about" class="py-16 sm:py-20">
       <div class="flex flex-col sm:flex-row gap-10 items-start">

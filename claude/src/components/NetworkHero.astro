@@ -1,29 +1,24 @@
 ---
 /**
- * NetworkHero — drifting network animation behind the page header.
- * Dark Oxford-blue canvas with softly glowing nodes and rewiring edges.
- * Pauses off-screen / when tab hidden / respects prefers-reduced-motion.
+ * NetworkBackground — calm drifting network, fixed behind the entire page.
+ * Deep Oxford-blue canvas with a handful of softly glowing nodes and
+ * slowly rewiring edges. Pauses when tab hidden / respects
+ * prefers-reduced-motion. Sits at z-index -1 behind all content.
  */
 ---
 
-<div class="relative isolate overflow-hidden" data-network-host>
-  <canvas
-    id="network-canvas"
-    aria-hidden="true"
-    class="absolute inset-0 w-full h-full motion-reduce:hidden"
-  ></canvas>
+<canvas
+  id="network-canvas"
+  aria-hidden="true"
+  class="fixed inset-0 w-full h-full -z-10 motion-reduce:hidden"
+></canvas>
 
-  <!-- Static fallback for reduced motion -->
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 hidden motion-reduce:block"
-    style="background: radial-gradient(circle at 30% 30%, rgba(176,141,87,0.15), transparent 60%), var(--color-oxford);"
-  ></div>
-
-  <div class="relative">
-    <slot />
-  </div>
-</div>
+<!-- Static fallback for reduced motion -->
+<div
+  aria-hidden="true"
+  class="fixed inset-0 -z-10 hidden motion-reduce:block"
+  style="background: radial-gradient(circle at 30% 20%, rgba(176,141,87,0.10), transparent 55%), var(--color-oxford);"
+></div>
 
 <script is:inline>
   (() => {
@@ -41,11 +36,12 @@
 
     // Oxford palette: gold, teal, terracotta, ivory — against deep Oxford-blue.
     const NODE_COLORS = ["#b08d57", "#5fa8a8", "#c97b53", "#e9e4d8"];
-    const EDGE_COLOR = "rgba(233, 228, 216, 0.16)";
+    const EDGE_COLOR = "rgba(233, 228, 216, 0.10)";
 
-    const NODE_COUNT = 46;
-    const CONNECT_DIST = 150;
-    const DRIFT_SPEED = 0.16;
+    // Calm, sparse, slow — meant to sit quietly behind reading content.
+    const NODE_COUNT = 56;
+    const CONNECT_DIST = 140;
+    const DRIFT_SPEED = 0.07;
 
     const nodes = [];
 
@@ -53,39 +49,23 @@
       return min + Math.random() * (max - min);
     }
 
-    // ~1-in-6 nodes is a "hub" — bigger, with a soft pulsing glow halo,
-    // evoking an influential account in a social graph / an active unit
-    // in a neural net.
     function seedNodes() {
       nodes.length = 0;
       for (let i = 0; i < NODE_COUNT; i++) {
-        const isHub = Math.random() < 0.16;
         nodes.push({
           x: rand(0, width),
           y: rand(0, height),
           vx: rand(-DRIFT_SPEED, DRIFT_SPEED),
           vy: rand(-DRIFT_SPEED, DRIFT_SPEED),
-          r: isHub ? rand(4, 6) : rand(1.4, 3),
-          hub: isHub,
-          phase: rand(0, Math.PI * 2),
+          r: rand(1.2, 2.6),
           c: NODE_COLORS[Math.floor(Math.random() * NODE_COLORS.length)],
         });
       }
     }
 
-    // Pulses of "shared information" travel along a handful of edges at
-    // any moment — small bright dots gliding from node to node.
-    const MAX_PULSES = 10;
-    const pulses = [];
-    function maybeSpawnPulse(a, b) {
-      if (pulses.length >= MAX_PULSES || Math.random() > 0.0035) return;
-      pulses.push({ a, b, t: 0, speed: rand(0.006, 0.014), c: a.c });
-    }
-
     function resize() {
-      const rect = canvas.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
+      width = window.innerWidth;
+      height = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -123,54 +103,18 @@
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
-            maybeSpawnPulse(a, b);
           }
         }
       }
 
-      // Glowing halos behind hub nodes — gentle pulse, like an active
-      // account / firing neuron.
-      const now = performance.now() * 0.001;
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        if (!n.hub) continue;
-        const pulse = 0.55 + 0.45 * Math.sin(now * 1.4 + n.phase);
-        const haloR = n.r * (3.4 + pulse * 1.6);
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, haloR);
-        grad.addColorStop(0, n.c + "55");
-        grad.addColorStop(1, n.c + "00");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, haloR, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Information pulses gliding along edges.
-      for (let i = pulses.length - 1; i >= 0; i--) {
-        const p = pulses[i];
-        p.t += p.speed;
-        if (p.t >= 1) {
-          pulses.splice(i, 1);
-          continue;
-        }
-        const x = p.a.x + (p.b.x - p.a.x) * p.t;
-        const y = p.a.y + (p.b.y - p.a.y) * p.t;
-        const fade = Math.sin(Math.PI * p.t); // fade in/out along the trip
-        ctx.fillStyle = p.c;
-        ctx.globalAlpha = 0.85 * fade;
-        ctx.beginPath();
-        ctx.arc(x, y, 1.8, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-
-      // Nodes on top.
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         ctx.fillStyle = n.c;
+        ctx.globalAlpha = 0.7;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
+        ctx.globalAlpha = 1;
       }
     }
 
@@ -189,18 +133,6 @@
       running = false;
       cancelAnimationFrame(rafId);
     }
-
-    const host = canvas.closest("[data-network-host]") || canvas;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) start();
-          else stop();
-        });
-      },
-      { threshold: 0 },
-    );
-    io.observe(host);
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stop();
