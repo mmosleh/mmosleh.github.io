@@ -1,0 +1,96 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const navLinks: Array<{ href: string; label: string }> = [
+  { href: "/", label: "Home" },
+  { href: "/publications", label: "Publications" },
+  { href: "/contact", label: "Contact" },
+];
+
+function isActive(href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+---
+
+<header
+  class="sticky top-0 z-30 border-b hairline"
+  style="background: rgba(0, 33, 71, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
+>
+  <div class="max-w-[76rem] mx-auto px-5 sm:px-8 py-3 sm:py-4 flex items-center justify-between gap-6">
+    <a href="/" class="group select-none" aria-label="Mohsen Mosleh — home">
+      <span class="font-[Fraunces] text-2xl sm:text-3xl font-medium tracking-tight leading-none text-[var(--color-ink)]">
+        Mohsen Mosleh
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav aria-label="Primary" class="hidden sm:block">
+      <ul class="flex items-center gap-1 sm:gap-2 text-sm">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                "inline-block px-2.5 py-1.5 rounded transition-colors",
+                isActive(link.href)
+                  ? "text-[var(--color-ink)] font-medium underline decoration-[var(--color-ember)] decoration-2 underline-offset-[6px]"
+                  : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]",
+              ]}
+              aria-current={isActive(link.href) ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="mobile-menu-btn"
+      class="sm:hidden p-2 text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav dropdown -->
+  <nav id="mobile-menu" class="hidden sm:hidden border-t hairline" aria-label="Mobile navigation">
+    <ul class="max-w-[76rem] mx-auto px-5 py-4 space-y-2">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              "block px-3 py-2 rounded text-sm",
+              isActive(link.href)
+                ? "text-[var(--color-ink)] font-medium bg-[var(--color-cream-card)]"
+                : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]",
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    if (!btn || !menu) return;
+    btn.addEventListener("click", () => {
+      const open = menu.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(!open));
+    });
+  })();
+</script>

@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const allPubs = (await getCollection("publications", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.year - a.data.year || a.data.order - b.data.order);
+
+const years = [...new Set(allPubs.map((p) => p.data.year))].sort((a, b) => b - a);
+
+const SCHOLAR_URL = "https://scholar.google.com/citations?user=vVg9g0MAAAAJ";
+---
+
+<BaseLayout title="Publications">
+  <section class="max-w-[76rem] mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-8">
+    <SectionHeader
+      eyebrow="Research output"
+      title="Publications."
+      kicker={`For a complete and up-to-date list, see my <a href="${SCHOLAR_URL}" class="text-[var(--color-ember)] underline underline-offset-2 hover:no-underline">Google Scholar profile</a>.`}
+    />
+
+    <!-- Year anchors -->
+    <div class="flex flex-wrap gap-2 mb-10" data-reveal>
+      {years.map((y) => (
+        <a
+          href={`#year-${y}`}
+          class="px-3 py-1 rounded-full text-xs font-medium ring-1 ring-[var(--color-rule)] text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:ring-[var(--color-ink)]/40 transition-colors"
+        >
+          {y}
+        </a>
+      ))}
+    </div>
+
+    {years.map((year) => {
+      const pubs = allPubs.filter((p) => p.data.year === year);
+      return (
+        <div id={`year-${year}`} class="mb-12" data-reveal>
+          <h3 class="h-display text-2xl mb-6 pb-3 border-b hairline">{year}</h3>
+          <ul class="space-y-6">
+            {pubs.map((p) => (
+              <li class="group">
+                <h4 class="h-display text-lg leading-snug mb-1">{p.data.title}</h4>
+                <p class="text-[var(--color-ink-muted)] text-sm mb-1">
+                  {p.data.authors.map((a, idx) => (
+                    <Fragment>
+                      {idx > 0 && ", "}
+                      {a.includes("Mosleh") ? <strong class="text-[var(--color-ink)]">{a}</strong> : a}
+                    </Fragment>
+                  ))}
+                </p>
+                <p class="text-[var(--color-ink-soft)] text-sm italic mb-2">{p.data.venue}</p>
+                {p.data.links && (
+                  <div class="flex gap-3 text-sm">
+                    {p.data.links.publisher && (
+                      <a href={p.data.links.publisher} class="text-[var(--color-ember)] hover:underline underline-offset-2">
+                        Publisher &nearr;
+                      </a>
+                    )}
+                    {p.data.links.arxiv && (
+                      <a href={p.data.links.arxiv} class="text-[var(--color-ember)] hover:underline underline-offset-2">
+                        arXiv &nearr;
+                      </a>
+                    )}
+                    {p.data.links.doi && (
+                      <a href={p.data.links.doi} class="text-[var(--color-ember)] hover:underline underline-offset-2">
+                        DOI &nearr;
+                      </a>
+                    )}
+                    {p.data.links.pdf && (
+                      <a href={p.data.links.pdf} class="text-[var(--color-ember)] hover:underline underline-offset-2">
+                        PDF &nearr;
+                      </a>
+                    )}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </section>
+</BaseLayout>

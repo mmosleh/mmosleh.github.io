@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+---
+
+<BaseLayout title="Contact">
+  <section class="max-w-[76rem] mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-8">
+    <SectionHeader
+      eyebrow="Get in touch"
+      title="Contact."
+    />
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+      <!-- Info -->
+      <div data-reveal class="space-y-8">
+        <div>
+          <h3 class="h-display text-xl mb-3">Office</h3>
+          <p class="text-[var(--color-ink-soft)] leading-relaxed">
+            Oxford Internet Institute<br />
+            1 St Giles<br />
+            Oxford, OX1 3JS<br />
+            United Kingdom
+          </p>
+        </div>
+
+        <div>
+          <h3 class="h-display text-xl mb-3">Email</h3>
+          <a
+            href="mailto:mohsen.mosleh@oii.ox.ac.uk"
+            class="text-[var(--color-ember)] hover:underline underline-offset-2 text-lg"
+          >
+            mohsen.mosleh@oii.ox.ac.uk
+          </a>
+        </div>
+
+        <div>
+          <h3 class="h-display text-xl mb-3">Profiles</h3>
+          <ul class="space-y-2 text-[var(--color-ink-soft)]">
+            <li>
+              <a href="https://scholar.google.com/citations?user=vVg9g0MAAAAJ" class="hover:text-[var(--color-ink)] transition-colors">
+                Google Scholar &nearr;
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/mohaborji" class="hover:text-[var(--color-ink)] transition-colors">
+                X / Twitter &nearr;
+              </a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/mohsenmosleh.bsky.social" class="hover:text-[var(--color-ink)] transition-colors">
+                Bluesky &nearr;
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CV download placeholder -->
+        <div>
+          <a
+            href="/MMosleh_CV.pdf"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-colors"
+            style="background: var(--color-ink); color: var(--color-cream);"
+          >
+            Download CV (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo -->
+      <div data-reveal style="--reveal-delay:100ms">
+        <div class="rounded-2xl overflow-hidden ring-1 ring-[var(--color-rule)]" style="background: var(--color-cream-card);">
+          <img
+            src="/mohsen.jpg"
+            alt="Mohsen Mosleh"
+            class="w-full h-auto"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t hairline mt-24" style="background: rgba(0, 26, 56, 0.4);">
+  <div class="max-w-[76rem] mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row gap-6 sm:items-end sm:justify-between text-sm text-[var(--color-ink-muted)]">
+    <div class="space-y-1">
+      <p class="font-[Fraunces] text-[var(--color-ink)] text-lg">Mohsen Mosleh</p>
+      <p>Oxford Internet Institute &middot; University of Oxford</p>
+      <p>Wolfson College &middot; MIT Sloan (Affiliate)</p>
+    </div>
+    <div class="space-y-1 sm:text-right">
+      <div class="flex sm:justify-end gap-4">
+        <a href="https://scholar.google.com/citations?user=vVg9g0MAAAAJ" class="hover:text-[var(--color-ink)]" aria-label="Google Scholar">Scholar</a>
+        <a href="https://twitter.com/mohaborji" class="hover:text-[var(--color-ink)]" aria-label="X / Twitter">X</a>
+        <a href="https://bsky.app/profile/mohsenmosleh.bsky.social" class="hover:text-[var(--color-ink)]" aria-label="Bluesky">Bluesky</a>
+      </div>
+      <p>
+        <a
+          href="mailto:mohsen.mosleh@oii.ox.ac.uk"
+          class="underline underline-offset-2 hover:text-[var(--color-ink)]"
+          style="text-decoration-color: color-mix(in srgb, var(--color-ember) 40%, transparent);"
+        >mohsen.mosleh@oii.ox.ac.uk</a>
+      </p>
+      <p>&copy; {year} Mohsen Mosleh</p>
+    </div>
+  </div>
+</footer>
