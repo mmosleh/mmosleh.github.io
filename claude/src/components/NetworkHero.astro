@@ -53,18 +53,33 @@
       return min + Math.random() * (max - min);
     }
 
+    // ~1-in-6 nodes is a "hub" — bigger, with a soft pulsing glow halo,
+    // evoking an influential account in a social graph / an active unit
+    // in a neural net.
     function seedNodes() {
       nodes.length = 0;
       for (let i = 0; i < NODE_COUNT; i++) {
+        const isHub = Math.random() < 0.16;
         nodes.push({
           x: rand(0, width),
           y: rand(0, height),
           vx: rand(-DRIFT_SPEED, DRIFT_SPEED),
           vy: rand(-DRIFT_SPEED, DRIFT_SPEED),
-          r: rand(1.6, 3.6),
+          r: isHub ? rand(4, 6) : rand(1.4, 3),
+          hub: isHub,
+          phase: rand(0, Math.PI * 2),
           c: NODE_COLORS[Math.floor(Math.random() * NODE_COLORS.length)],
         });
       }
+    }
+
+    // Pulses of "shared information" travel along a handful of edges at
+    // any moment — small bright dots gliding from node to node.
+    const MAX_PULSES = 10;
+    const pulses = [];
+    function maybeSpawnPulse(a, b) {
+      if (pulses.length >= MAX_PULSES || Math.random() > 0.0035) return;
+      pulses.push({ a, b, t: 0, speed: rand(0.006, 0.014), c: a.c });
     }
 
     function resize() {
@@ -108,10 +123,48 @@
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
+            maybeSpawnPulse(a, b);
           }
         }
       }
 
+      // Glowing halos behind hub nodes — gentle pulse, like an active
+      // account / firing neuron.
+      const now = performance.now() * 0.001;
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        if (!n.hub) continue;
+        const pulse = 0.55 + 0.45 * Math.sin(now * 1.4 + n.phase);
+        const haloR = n.r * (3.4 + pulse * 1.6);
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, haloR);
+        grad.addColorStop(0, n.c + "55");
+        grad.addColorStop(1, n.c + "00");
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, haloR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Information pulses gliding along edges.
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        p.t += p.speed;
+        if (p.t >= 1) {
+          pulses.splice(i, 1);
+          continue;
+        }
+        const x = p.a.x + (p.b.x - p.a.x) * p.t;
+        const y = p.a.y + (p.b.y - p.a.y) * p.t;
+        const fade = Math.sin(Math.PI * p.t); // fade in/out along the trip
+        ctx.fillStyle = p.c;
+        ctx.globalAlpha = 0.85 * fade;
+        ctx.beginPath();
+        ctx.arc(x, y, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+
+      // Nodes on top.
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         ctx.fillStyle = n.c;
