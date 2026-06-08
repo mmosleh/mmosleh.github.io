@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+:root {
+  --color-oxford: #002147;       /* Oxford blue */
+  --color-oxford-light: #1d3a5f;
+  --color-ink: #14213d;
+  --color-ink-soft: #44546b;
+  --color-ink-muted: #6b7a90;
+  --color-paper: #fbfaf7;
+  --color-rule: #dcdfe5;
+  --color-gold: #b08d57;          /* Oxford gold accent */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.h-display {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+.hairline {
+  border-color: var(--color-rule);
+}
+
+.link-accent {
+  color: var(--color-oxford);
+}
+.link-accent:hover {
+  color: var(--color-gold);
+}

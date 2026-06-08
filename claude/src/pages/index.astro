@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const SCHOLAR_URL = "https://scholar.google.com/citations?user=vVg9g0MAAAAJ";
+
+const pubs = (await getCollection("publications", ({ data }) => !data.draft && data.featured))
+  .sort((a, b) => b.data.year - a.data.year || a.data.order - b.data.order);
+---
+
+<BaseLayout>
+  <!-- Header / nav -->
+  <header class="border-b" style="border-color: var(--color-rule)">
+    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="/" class="h-display text-lg" style="color: var(--color-oxford)">Mohsen Mosleh</a>
+      <nav class="flex gap-6 text-sm">
+        <a href="#about" class="link-accent">About</a>
+        <a href="#publications" class="link-accent">Publications</a>
+        <a href="#contact" class="link-accent">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6">
+    <!-- About / intro -->
+    <section id="about" class="py-16 sm:py-20">
+      <div class="flex flex-col sm:flex-row gap-10 items-start">
+        <img
+          src="/img/mohsen.jpg"
+          alt="Portrait of Mohsen Mosleh"
+          class="w-40 h-40 rounded-full object-cover ring-4"
+          style="--tw-ring-color: var(--color-oxford-light)"
+          onerror="this.style.display='none'"
+        />
+        <div>
+          <h1 class="h-display text-3xl sm:text-4xl mb-3" style="color: var(--color-oxford)">
+            Mohsen Mosleh
+          </h1>
+          <p class="text-lg mb-4" style="color: var(--color-ink-soft)">
+            I study how social networks and online platforms shape the spread of (mis)information,
+            cooperation, and collective behaviour, combining large-scale field experiments,
+            computational methods, and behavioural science.
+          </p>
+          <p style="color: var(--color-ink-muted)">
+            I am [your title/affiliation here — e.g. Associate Professor at the University of
+            Oxford, Saïd Business School]. My research has appeared in venues such as
+            <em>Nature</em>, <em>PNAS</em>, and <em>Management Science</em>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="hairline" />
+
+    <!-- Selected publications -->
+    <section id="publications" class="py-16 sm:py-20">
+      <div class="flex items-baseline justify-between mb-10">
+        <h2 class="h-display text-2xl sm:text-3xl" style="color: var(--color-oxford)">
+          Selected publications
+        </h2>
+        <a href={SCHOLAR_URL} class="text-sm link-accent underline underline-offset-2">
+          Full list on Google Scholar &nearr;
+        </a>
+      </div>
+
+      <ul class="space-y-12">
+        {pubs.map((p) => (
+          <li class="flex flex-col sm:flex-row gap-6">
+            {p.data.infographic && (
+              <img
+                src={p.data.infographic}
+                alt={`Infographic for ${p.data.title}`}
+                class="w-full sm:w-56 h-auto rounded-md ring-1 shrink-0 object-cover"
+                style="--tw-ring-color: var(--color-rule)"
+                onerror="this.style.display='none'"
+              />
+            )}
+            <div>
+              <div class="flex items-center gap-3 mb-2">
+                {p.data.journalLogo && (
+                  <img
+                    src={p.data.journalLogo}
+                    alt={p.data.venue}
+                    class="h-6 w-auto"
+                    onerror="this.style.display='none'"
+                  />
+                )}
+                <span class="text-sm italic" style="color: var(--color-ink-muted)">
+                  {p.data.venue}
+                </span>
+              </div>
+              <h3 class="h-display text-xl leading-snug mb-1" style="color: var(--color-ink)">
+                {p.data.title}
+              </h3>
+              <p class="text-sm mb-3" style="color: var(--color-ink-soft)">
+                {p.data.authors.map((a, idx) => (
+                  <Fragment>
+                    {idx > 0 && ", "}
+                    {a.includes("Mosleh") ? <strong>{a}</strong> : a}
+                  </Fragment>
+                ))}
+              </p>
+              {p.data.links && (
+                <div class="flex gap-4 text-sm">
+                  {p.data.links.publisher && (
+                    <a href={p.data.links.publisher} class="link-accent underline underline-offset-2">Publisher &nearr;</a>
+                  )}
+                  {p.data.links.doi && (
+                    <a href={p.data.links.doi} class="link-accent underline underline-offset-2">DOI &nearr;</a>
+                  )}
+                  {p.data.links.arxiv && (
+                    <a href={p.data.links.arxiv} class="link-accent underline underline-offset-2">arXiv &nearr;</a>
+                  )}
+                  {p.data.links.pdf && (
+                    <a href={p.data.links.pdf} class="link-accent underline underline-offset-2">PDF &nearr;</a>
+                  )}
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <hr class="hairline" />
+
+    <!-- Contact -->
+    <footer id="contact" class="py-16 sm:py-20 text-sm" style="color: var(--color-ink-muted)">
+      <h2 class="h-display text-2xl mb-4" style="color: var(--color-oxford)">Contact</h2>
+      <p>Email: <a href="mailto:mohsen.mosleh@gmail.com" class="link-accent underline underline-offset-2">mohsen.mosleh@gmail.com</a></p>
+      <p class="mt-2">© {new Date().getFullYear()} Mohsen Mosleh</p>
+    </footer>
+  </main>
+</BaseLayout>

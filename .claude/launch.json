@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "claude-site",
+      "runtimeExecutable": "/Users/mohsenmosleh/.nvm/versions/node/v22.22.3/bin/node",
+      "runtimeArgs": ["/Users/mohsenmosleh/Dropbox/Personal/Research/website/claude/node_modules/.bin/astro", "dev", "--root", "/Users/mohsenmosleh/Dropbox/Personal/Research/website/claude"],
+      "port": 4321
+    }
+  ]
+}
