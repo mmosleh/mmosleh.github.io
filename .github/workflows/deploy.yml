@@ -24,6 +24,9 @@ jobs:
 
       - name: Install, build, upload (Astro action)
         uses: withastro/action@v3
+        with:
+          path: ./claude
+          node-version: 22
 
   deploy:
     name: Deploy to Pages
