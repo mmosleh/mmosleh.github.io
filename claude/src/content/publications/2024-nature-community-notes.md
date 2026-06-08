@@ -4,6 +4,7 @@ authors: ["Mohsen Mosleh", "Author Two", "Author Three"]
 venue: "Nature (2024)"
 year: 2024
 featured: true
+tagline: "Can crowdsourced fact-checkers correct misinformation at scale? Perspective-taking changes the answer."
 journalLogo: "/journals/nature.svg"
 infographic: "/infographics/2024-community-notes.png"
 links:

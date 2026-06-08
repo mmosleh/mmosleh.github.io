@@ -9,6 +9,8 @@ const publications = defineCollection({
     venue: z.string(),
     year: z.number().int(),
     featured: z.boolean().default(false),
+    // One-sentence plain-language summary shown on the card
+    tagline: z.string().optional(),
     // Path under /public, e.g. "/journals/nature.svg"
     journalLogo: z.string().optional(),
     // Path under /public, e.g. "/infographics/2024-community-notes.png"

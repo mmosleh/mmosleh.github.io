@@ -10,133 +10,179 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
 ---
 
 <BaseLayout>
-  <!-- Calm drifting network, fixed behind the entire page -->
+  <!-- Fixed full-page network background -->
   <NetworkHero />
 
-  <!-- Header / nav -->
+  <!-- Sticky nav -->
   <header
-    class="sticky top-0 z-10 border-b backdrop-blur-md"
-    style="border-color: var(--color-rule); background-color: rgba(251,250,247,0.82)"
+    class="sticky top-0 z-10 border-b"
+    style="border-color: rgba(255,255,255,0.08); background-color: rgba(0,33,71,0.82); backdrop-filter: blur(12px);"
   >
-    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
-      <a href="/" class="h-display text-lg" style="color: var(--color-oxford)">Mohsen Mosleh</a>
-      <nav class="flex gap-6 text-sm">
-        <a href="#about" class="link-accent">About</a>
-        <a href="#publications" class="link-accent">Publications</a>
-        <a href="#contact" class="link-accent">Contact</a>
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="h-display text-lg text-white tracking-tight">Mohsen Mosleh</a>
+      <nav class="flex gap-6 text-sm" style="color: rgba(233,228,216,0.75)">
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#publications" class="hover:text-white transition-colors">Publications</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- Intro strip over the network -->
-  <div class="max-w-4xl mx-auto px-6 pt-14 pb-8">
-    <p class="uppercase tracking-[0.2em] text-xs mb-3" style="color: var(--color-gold)">
-      Networks &middot; Misinformation &middot; Collective behaviour
-    </p>
-    <h1 class="h-display text-4xl sm:text-5xl text-white leading-tight max-w-2xl drop-shadow-sm">
-      Mohsen Mosleh
-    </h1>
-    <p class="mt-4 text-lg max-w-xl" style="color: rgba(255,255,255,0.82)">
-      Researching how social networks and online platforms shape the spread
-      of (mis)information, cooperation, and collective behaviour.
-    </p>
-  </div>
+  <main class="max-w-5xl mx-auto px-6">
 
-  <main
-    class="max-w-4xl mx-auto px-6 sm:px-10 rounded-t-2xl backdrop-blur-md ring-1"
-    style="background-color: rgba(251,250,247,0.9); --tw-ring-color: rgba(255,255,255,0.08)"
-  >
-    <!-- About / intro -->
-    <section id="about" class="py-16 sm:py-20">
+    <!-- Hero intro -->
+    <section id="about" class="pt-16 pb-20">
       <div class="flex flex-col sm:flex-row gap-10 items-start">
         <img
           src="/img/mohsen.jpg"
           alt="Portrait of Mohsen Mosleh"
-          class="w-40 h-40 rounded-full object-cover ring-4"
-          style="--tw-ring-color: var(--color-oxford-light)"
+          class="w-36 h-36 rounded-full object-cover shrink-0"
+          style="outline: 2px solid rgba(176,141,87,0.5); outline-offset: 3px;"
           onerror="this.style.display='none'"
         />
         <div>
-          <h1 class="h-display text-3xl sm:text-4xl mb-3" style="color: var(--color-oxford)">
+          <p class="uppercase tracking-[0.18em] text-xs mb-4" style="color: var(--color-gold)">
+            Networks · Misinformation · Collective behaviour · AI
+          </p>
+          <h1 class="h-display text-4xl sm:text-5xl text-white leading-tight mb-5">
             Mohsen Mosleh
           </h1>
-          <p class="text-lg mb-4" style="color: var(--color-ink-soft)">
+          <p class="text-lg mb-4 leading-relaxed" style="color: rgba(233,228,216,0.85)">
             I study how social networks and online platforms shape the spread of (mis)information,
-            cooperation, and collective behaviour, combining large-scale field experiments,
+            cooperation, and collective behaviour — combining large-scale field experiments,
             computational methods, and behavioural science.
           </p>
-          <p style="color: var(--color-ink-muted)">
-            I am [your title/affiliation here — e.g. Associate Professor at the University of
-            Oxford, Saïd Business School]. My research has appeared in venues such as
-            <em>Nature</em>, <em>PNAS</em>, and <em>Management Science</em>.
+          <p class="text-sm leading-relaxed" style="color: rgba(233,228,216,0.55)">
+            [Your title/affiliation — e.g. Associate Professor, University of Oxford, Saïd Business School.]
+            Research published in <em>Nature</em>, <em>PNAS</em>, <em>Management Science</em>, and more.
           </p>
+          <div class="flex gap-4 mt-6 text-sm">
+            <a href={SCHOLAR_URL}
+               class="px-4 py-2 rounded-full border text-white hover:bg-white/10 transition-colors"
+               style="border-color: rgba(176,141,87,0.6); color: var(--color-gold)">
+              Google Scholar ↗
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <hr class="hairline" />
+    <!-- Divider -->
+    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
 
     <!-- Selected publications -->
-    <section id="publications" class="py-16 sm:py-20">
+    <section id="publications" class="pb-20">
       <div class="flex items-baseline justify-between mb-10">
-        <h2 class="h-display text-2xl sm:text-3xl" style="color: var(--color-oxford)">
-          Selected publications
-        </h2>
-        <a href={SCHOLAR_URL} class="text-sm link-accent underline underline-offset-2">
-          Full list on Google Scholar &nearr;
+        <h2 class="h-display text-2xl sm:text-3xl text-white">Selected publications</h2>
+        <a href={SCHOLAR_URL}
+           class="text-sm hover:text-white transition-colors"
+           style="color: rgba(233,228,216,0.55)">
+          Full list ↗
         </a>
       </div>
 
-      <ul class="space-y-12">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {pubs.map((p) => (
-          <li class="flex flex-col sm:flex-row gap-6">
-            {p.data.infographic && (
+          <li
+            class="flex flex-col rounded-2xl overflow-hidden"
+            style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"
+          >
+            {/* Infographic */}
+            {p.data.infographic ? (
               <img
                 src={p.data.infographic}
                 alt={`Infographic for ${p.data.title}`}
-                class="w-full sm:w-56 h-auto rounded-md ring-1 shrink-0 object-cover"
-                style="--tw-ring-color: var(--color-rule)"
-                onerror="this.style.display='none'"
+                class="w-full aspect-[4/3] object-cover"
+                onerror="this.closest('img')?.remove()"
               />
+            ) : (
+              <div
+                class="w-full aspect-[4/3] flex items-center justify-center"
+                style="background: linear-gradient(135deg, rgba(176,141,87,0.12), rgba(95,168,168,0.12))"
+              >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <circle cx="24" cy="16" r="5" fill="rgba(176,141,87,0.5)"/>
+                  <circle cx="10" cy="34" r="4" fill="rgba(95,168,168,0.5)"/>
+                  <circle cx="38" cy="34" r="4" fill="rgba(201,123,83,0.5)"/>
+                  <line x1="24" y1="21" x2="10" y2="30" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
+                  <line x1="24" y1="21" x2="38" y2="30" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
+                  <line x1="10" y1="34" x2="38" y2="34" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
+                </svg>
+              </div>
             )}
-            <div>
-              <div class="flex items-center gap-3 mb-2">
+
+            {/* Card body */}
+            <div class="flex flex-col flex-1 p-5">
+              {/* Journal label + logo */}
+              <div class="flex items-center gap-2 mb-3">
                 {p.data.journalLogo && (
                   <img
                     src={p.data.journalLogo}
-                    alt={p.data.venue}
-                    class="h-6 w-auto"
+                    alt=""
+                    class="h-5 w-auto"
                     onerror="this.style.display='none'"
                   />
                 )}
-                <span class="text-sm italic" style="color: var(--color-ink-muted)">
+                <span
+                  class="uppercase tracking-widest text-[10px] font-semibold leading-tight"
+                  style="color: var(--color-gold)"
+                >
                   {p.data.venue}
                 </span>
               </div>
-              <h3 class="h-display text-xl leading-snug mb-1" style="color: var(--color-ink)">
+
+              {/* Title */}
+              <h3 class="h-display text-lg text-white leading-snug mb-3 flex-1">
                 {p.data.title}
               </h3>
-              <p class="text-sm mb-3" style="color: var(--color-ink-soft)">
+
+              {/* Tagline */}
+              {p.data.tagline && (
+                <p class="text-sm mb-4 leading-relaxed" style="color: rgba(233,228,216,0.6)">
+                  {p.data.tagline}
+                </p>
+              )}
+
+              {/* Authors */}
+              <p class="text-xs mb-4" style="color: rgba(233,228,216,0.4)">
                 {p.data.authors.map((a, idx) => (
                   <Fragment>
                     {idx > 0 && ", "}
-                    {a.includes("Mosleh") ? <strong>{a}</strong> : a}
+                    {a.includes("Mosleh") ? <strong class="text-white/70">{a}</strong> : a}
                   </Fragment>
                 ))}
               </p>
+
+              {/* Links */}
               {p.data.links && (
-                <div class="flex gap-4 text-sm">
+                <div class="flex gap-3 text-xs flex-wrap mt-auto">
                   {p.data.links.publisher && (
-                    <a href={p.data.links.publisher} class="link-accent underline underline-offset-2">Publisher &nearr;</a>
+                    <a href={p.data.links.publisher}
+                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors text-white"
+                       style="border-color: rgba(255,255,255,0.2)">
+                      Publisher ↗
+                    </a>
                   )}
                   {p.data.links.doi && (
-                    <a href={p.data.links.doi} class="link-accent underline underline-offset-2">DOI &nearr;</a>
+                    <a href={p.data.links.doi}
+                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                      DOI ↗
+                    </a>
                   )}
                   {p.data.links.arxiv && (
-                    <a href={p.data.links.arxiv} class="link-accent underline underline-offset-2">arXiv &nearr;</a>
+                    <a href={p.data.links.arxiv}
+                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                      arXiv ↗
+                    </a>
                   )}
                   {p.data.links.pdf && (
-                    <a href={p.data.links.pdf} class="link-accent underline underline-offset-2">PDF &nearr;</a>
+                    <a href={p.data.links.pdf}
+                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                      PDF ↗
+                    </a>
                   )}
                 </div>
               )}
@@ -146,13 +192,25 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       </ul>
     </section>
 
-    <hr class="hairline" />
+    <!-- Divider -->
+    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
 
-    <!-- Contact -->
-    <footer id="contact" class="py-16 sm:py-20 text-sm" style="color: var(--color-ink-muted)">
-      <h2 class="h-display text-2xl mb-4" style="color: var(--color-oxford)">Contact</h2>
-      <p>Email: <a href="mailto:mohsen.mosleh@gmail.com" class="link-accent underline underline-offset-2">mohsen.mosleh@gmail.com</a></p>
-      <p class="mt-2">© {new Date().getFullYear()} Mohsen Mosleh</p>
+    <!-- Contact / footer -->
+    <footer id="contact" class="pb-20 text-sm" style="color: rgba(233,228,216,0.5)">
+      <h2 class="h-display text-2xl text-white mb-4">Contact</h2>
+      <p>
+        Email:
+        <a
+          href="mailto:mohsen.mosleh@gmail.com"
+          class="hover:text-white transition-colors underline underline-offset-2"
+          style="color: var(--color-gold)"
+        >
+          mohsen.mosleh@gmail.com
+        </a>
+      </p>
+      <p class="mt-2" style="color: rgba(233,228,216,0.3)">
+        © {new Date().getFullYear()} Mohsen Mosleh
+      </p>
     </footer>
   </main>
 </BaseLayout>

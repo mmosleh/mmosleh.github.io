@@ -4,6 +4,7 @@ authors: ["Mohsen Mosleh", "Author Two"]
 venue: "Proceedings of the National Academy of Sciences (2025)"
 year: 2025
 featured: true
+tagline: "Political communities on social media diverge in systematic, predictable ways — even when exposed to the same content."
 journalLogo: "/journals/pnas.svg"
 infographic: "/infographics/2025-divergent.png"
 links:

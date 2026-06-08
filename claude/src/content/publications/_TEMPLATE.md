@@ -5,6 +5,7 @@ authors: ["First Author", "Mohsen Mosleh", "Last Author"]
 venue: "Journal Name (Year)"
 year: 2026
 featured: false
+tagline: "One sentence plain-language summary shown under the title on the card."
 journalLogo: "/journals/example.svg"
 infographic: "/infographics/example.png"
 links:
