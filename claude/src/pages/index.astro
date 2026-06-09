@@ -65,10 +65,11 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
             and the UK Department of Science, Innovation &amp; Technology.
           </p>
 
-          <p class="text-sm leading-relaxed mb-6" style="color: rgba(233,228,216,0.55)">
-            I occasionally advise organisations and start-ups on AI, information integrity, and
-            online behaviour — helping teams with evaluation frameworks, research strategy, and
-            product validation.
+          <p class="text-sm leading-relaxed mb-6" style="color: rgba(233,228,216,0.85)">
+            I occasionally advise organisations and start-ups on <strong class="text-white">AI</strong>,
+            <strong class="text-white">information integrity</strong>, and
+            <strong class="text-white">online behaviour</strong> — helping teams with evaluation
+            frameworks, research strategy, and product validation.
           </p>
 
           <!-- Social links -->
@@ -101,6 +102,24 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
+
+    <!-- Contact -->
+    <section id="contact" class="pb-20 text-sm" style="color: rgba(233,228,216,0.5)">
+      <h2 class="h-display text-2xl text-white mb-4">Contact</h2>
+      <p>
+        Email:
+        <a
+          href="mailto:mohsen.mosleh@oii.ox.ac.uk"
+          class="hover:text-white transition-colors underline underline-offset-2"
+          style="color: var(--color-gold)"
+        >
+          mohsen.mosleh@oii.ox.ac.uk
+        </a>
+      </p>
     </section>
 
     <!-- Divider -->
@@ -233,25 +252,9 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       </ul>
     </section>
 
-    <!-- Divider -->
-    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
-
-    <!-- Contact / footer -->
-    <footer id="contact" class="pb-20 text-sm" style="color: rgba(233,228,216,0.5)">
-      <h2 class="h-display text-2xl text-white mb-4">Contact</h2>
-      <p>
-        Email:
-        <a
-          href="mailto:mohsen.mosleh@gmail.com"
-          class="hover:text-white transition-colors underline underline-offset-2"
-          style="color: var(--color-gold)"
-        >
-          mohsen.mosleh@gmail.com
-        </a>
-      </p>
-      <p class="mt-2" style="color: rgba(233,228,216,0.3)">
-        © {new Date().getFullYear()} Mohsen Mosleh
-      </p>
+    <!-- Footer -->
+    <footer class="pb-10 text-xs text-center" style="color: rgba(233,228,216,0.25)">
+      © {new Date().getFullYear()} Mohsen Mosleh
     </footer>
   </main>
   <!-- Lightbox overlay -->
