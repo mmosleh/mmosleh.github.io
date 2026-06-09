@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="#004B8D"/>
+  <text x="100" y="36" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="22" fill="white" text-anchor="middle" letter-spacing="-0.5">nature</text>
+  <text x="100" y="60" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="rgba(255,255,255,0.85)" text-anchor="middle" letter-spacing="0.5">communications</text>
+</svg>

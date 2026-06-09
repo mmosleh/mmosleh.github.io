@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="white"/>
+  <!-- APS-style circle with psi -->
+  <circle cx="32" cy="40" r="26" fill="#1a56a0"/>
+  <line x1="32" y1="24" x2="32" y2="54" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M20 32 Q20 50 32 52 Q44 50 44 32" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="26" y1="54" x2="38" y2="54" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="66" y="35" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#1a1a1a">Psychological</text>
+  <text x="66" y="51" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#1a1a1a">Science</text>
+  <text x="66" y="65" font-family="Arial, sans-serif" font-size="10" fill="#888">APS · SAGE</text>
+</svg>

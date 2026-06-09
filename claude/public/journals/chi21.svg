@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="#00205B"/>
+  <!-- Wave shape (simplified CHI 2021 wave motif) -->
+  <path d="M8 55 Q18 38 28 48 Q38 58 48 42 Q58 26 68 38 Q78 50 88 40" fill="none" stroke="#E84427" stroke-width="3" stroke-linecap="round"/>
+  <path d="M8 62 Q18 48 28 55 Q38 62 48 50 Q58 38 68 48 Q78 58 88 50" fill="none" stroke="#2176C7" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rainbow lines -->
+  <line x1="8" y1="30" x2="40" y2="30" stroke="#E84427" stroke-width="2"/>
+  <line x1="8" y1="35" x2="38" y2="35" stroke="#F5A623" stroke-width="2"/>
+  <line x1="8" y1="40" x2="34" y2="40" stroke="#1DB57A" stroke-width="2"/>
+  <!-- CHI 2021 text -->
+  <text x="105" y="38" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="24" fill="white" text-anchor="middle">CHI</text>
+  <text x="105" y="60" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="20" fill="#F5A623" text-anchor="middle">2021</text>
+</svg>
