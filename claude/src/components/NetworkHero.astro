@@ -26,7 +26,7 @@
   id="network-canvas"
   aria-hidden="true"
   class="fixed inset-0 w-full h-full motion-reduce:hidden"
-  style="z-index: -10; opacity: 0.55;"
+  style="z-index: -10; opacity: 0.85;"
 ></canvas>
 
 <!-- Static fallback for reduced motion -->
@@ -52,12 +52,11 @@
 
     // Oxford palette: gold, teal, terracotta, ivory — against deep Oxford-blue.
     const NODE_COLORS = ["#b08d57", "#5fa8a8", "#c97b53", "#e9e4d8"];
-    const EDGE_COLOR = "rgba(233, 228, 216, 0.10)";
+    const EDGE_COLOR = "rgba(233, 228, 216, 0.22)";
 
-    // Calm, sparse, slow — meant to sit quietly behind reading content.
-    const NODE_COUNT = 56;
-    const CONNECT_DIST = 140;
-    const DRIFT_SPEED = 0.07;
+    const NODE_COUNT = 72;
+    const CONNECT_DIST = 160;
+    const DRIFT_SPEED = 0.12;
 
     const nodes = [];
 
@@ -73,7 +72,7 @@
           y: rand(0, height),
           vx: rand(-DRIFT_SPEED, DRIFT_SPEED),
           vy: rand(-DRIFT_SPEED, DRIFT_SPEED),
-          r: rand(1.2, 2.6),
+          r: rand(1.8, 3.6),
           c: NODE_COLORS[Math.floor(Math.random() * NODE_COLORS.length)],
         });
       }
@@ -126,11 +125,9 @@
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         ctx.fillStyle = n.c;
-        ctx.globalAlpha = 0.7;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
-        ctx.globalAlpha = 1;
       }
     }
 

@@ -87,39 +87,15 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
             class="flex flex-col rounded-2xl overflow-hidden"
             style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"
           >
-            {/* Infographic */}
-            {p.data.infographic ? (
-              <img
-                src={p.data.infographic}
-                alt={`Infographic for ${p.data.title}`}
-                class="w-full aspect-[4/3] object-cover"
-                onerror="this.closest('img')?.remove()"
-              />
-            ) : (
-              <div
-                class="w-full aspect-[4/3] flex items-center justify-center"
-                style="background: linear-gradient(135deg, rgba(176,141,87,0.12), rgba(95,168,168,0.12))"
-              >
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                  <circle cx="24" cy="16" r="5" fill="rgba(176,141,87,0.5)"/>
-                  <circle cx="10" cy="34" r="4" fill="rgba(95,168,168,0.5)"/>
-                  <circle cx="38" cy="34" r="4" fill="rgba(201,123,83,0.5)"/>
-                  <line x1="24" y1="21" x2="10" y2="30" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
-                  <line x1="24" y1="21" x2="38" y2="30" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
-                  <line x1="10" y1="34" x2="38" y2="34" stroke="rgba(233,228,216,0.2)" stroke-width="1.5"/>
-                </svg>
-              </div>
-            )}
-
-            {/* Card body */}
             <div class="flex flex-col flex-1 p-5">
-              {/* Journal label + logo */}
-              <div class="flex items-center gap-2 mb-3">
+
+              {/* 1. Journal logo + name */}
+              <div class="flex items-center gap-2 mb-4">
                 {p.data.journalLogo && (
                   <img
                     src={p.data.journalLogo}
                     alt=""
-                    class="h-5 w-auto"
+                    class="h-6 w-auto rounded"
                     onerror="this.style.display='none'"
                   />
                 )}
@@ -131,19 +107,19 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
                 </span>
               </div>
 
-              {/* Title */}
-              <h3 class="h-display text-lg text-white leading-snug mb-3 flex-1">
+              {/* 2. Title */}
+              <h3 class="h-display text-lg text-white leading-snug mb-4">
                 {p.data.title}
               </h3>
 
-              {/* Tagline */}
+              {/* 3. Tagline */}
               {p.data.tagline && (
                 <p class="text-sm mb-4 leading-relaxed" style="color: rgba(233,228,216,0.6)">
                   {p.data.tagline}
                 </p>
               )}
 
-              {/* Authors */}
+              {/* 4. Authors */}
               <p class="text-xs mb-4" style="color: rgba(233,228,216,0.4)">
                 {p.data.authors.map((a, idx) => (
                   <Fragment>
@@ -153,37 +129,73 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
                 ))}
               </p>
 
-              {/* Links */}
+              {/* 5. Links */}
               {p.data.links && (
-                <div class="flex gap-3 text-xs flex-wrap mt-auto">
+                <div class="flex gap-2 text-xs flex-wrap mb-5">
                   {p.data.links.publisher && (
-                    <a href={p.data.links.publisher}
+                    <a href={p.data.links.publisher} target="_blank"
                        class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors text-white"
-                       style="border-color: rgba(255,255,255,0.2)">
+                       style="border-color: rgba(255,255,255,0.25)">
                       Publisher ↗
                     </a>
                   )}
                   {p.data.links.doi && (
-                    <a href={p.data.links.doi}
+                    <a href={p.data.links.doi} target="_blank"
                        class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
                       DOI ↗
                     </a>
                   )}
                   {p.data.links.arxiv && (
-                    <a href={p.data.links.arxiv}
+                    <a href={p.data.links.arxiv} target="_blank"
                        class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
                       arXiv ↗
                     </a>
                   )}
                   {p.data.links.pdf && (
-                    <a href={p.data.links.pdf}
+                    <a href={p.data.links.pdf} target="_blank"
                        class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.6)">
+                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
                       PDF ↗
                     </a>
                   )}
+                </div>
+              )}
+
+              {/* 6. Infographic — zoomed-out thumbnail, click to enlarge */}
+              {p.data.infographic ? (
+                <button
+                  class="pub-lightbox-trigger w-full rounded-xl overflow-hidden cursor-zoom-in mt-auto"
+                  data-img={p.data.infographic}
+                  data-title={p.data.title}
+                  style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08);"
+                  aria-label={`View full infographic for ${p.data.title}`}
+                >
+                  <img
+                    src={p.data.infographic}
+                    alt={`Infographic for ${p.data.title}`}
+                    class="w-full object-contain"
+                    style="max-height: 140px; padding: 8px;"
+                    onerror="this.closest('button').style.display='none'"
+                  />
+                  <div class="text-center text-xs pb-2" style="color: rgba(233,228,216,0.4)">
+                    click to enlarge
+                  </div>
+                </button>
+              ) : (
+                <div
+                  class="w-full rounded-xl flex items-center justify-center mt-auto"
+                  style="height:100px; background: linear-gradient(135deg, rgba(176,141,87,0.08), rgba(95,168,168,0.08)); border: 1px solid rgba(255,255,255,0.06);"
+                >
+                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="16" r="5" fill="rgba(176,141,87,0.4)"/>
+                    <circle cx="10" cy="34" r="4" fill="rgba(95,168,168,0.4)"/>
+                    <circle cx="38" cy="34" r="4" fill="rgba(201,123,83,0.4)"/>
+                    <line x1="24" y1="21" x2="10" y2="30" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
+                    <line x1="24" y1="21" x2="38" y2="30" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
+                    <line x1="10" y1="34" x2="38" y2="34" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
+                  </svg>
                 </div>
               )}
             </div>
@@ -213,4 +225,54 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       </p>
     </footer>
   </main>
+  <!-- Lightbox overlay -->
+  <div
+    id="pub-lightbox"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-10"
+    style="background: rgba(0,15,35,0.92); backdrop-filter: blur(8px);"
+    role="dialog"
+    aria-modal="true"
+  >
+    <button
+      id="pub-lightbox-close"
+      class="absolute top-4 right-5 text-white/60 hover:text-white text-3xl leading-none transition-colors"
+      aria-label="Close"
+    >✕</button>
+    <img
+      id="pub-lightbox-img"
+      src=""
+      alt=""
+      class="max-w-full max-h-full rounded-2xl shadow-2xl object-contain"
+      style="max-height: 88vh; max-width: 92vw;"
+    />
+  </div>
+
+  <script is:inline>
+    (() => {
+      const lightbox = document.getElementById('pub-lightbox');
+      const img = document.getElementById('pub-lightbox-img');
+      const closeBtn = document.getElementById('pub-lightbox-close');
+
+      document.querySelectorAll('.pub-lightbox-trigger').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          img.src = btn.dataset.img;
+          img.alt = btn.dataset.title || '';
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function close() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = '';
+        img.src = '';
+      }
+
+      closeBtn.addEventListener('click', close);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    })();
+  </script>
 </BaseLayout>
