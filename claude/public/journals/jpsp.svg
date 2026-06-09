@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="white"/>
+  <!-- APA-style blue circle with psi -->
+  <circle cx="38" cy="40" r="28" fill="#1a56a0"/>
+  <!-- Psi symbol (ψ) simplified -->
+  <line x1="38" y1="22" x2="38" y2="56" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24 30 Q24 50 38 52 Q52 50 52 30" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <line x1="30" y1="56" x2="46" y2="56" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <!-- Journal label -->
+  <text x="74" y="34" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#1a56a0">J. Personality &amp;</text>
+  <text x="74" y="50" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#1a56a0">Social Psychology</text>
+  <text x="74" y="64" font-family="Arial, sans-serif" font-size="10" fill="#666">APA · 2025</text>
+</svg>
