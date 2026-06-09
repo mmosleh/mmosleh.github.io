@@ -23,14 +23,13 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       <nav class="flex gap-6 text-sm" style="color: rgba(233,228,216,0.75)">
         <a href="#about" class="hover:text-white transition-colors">About</a>
         <a href="#publications" class="hover:text-white transition-colors">Publications</a>
-        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto px-6">
 
-    <!-- Hero intro -->
+    <!-- About section (bio + contact merged) -->
     <section id="about" class="pt-16 pb-20">
       <div class="flex flex-col sm:flex-row gap-10 items-start">
         <img
@@ -48,36 +47,52 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
             Mohsen Mosleh
           </h1>
 
+          <!-- Affiliations -->
           <p class="text-base leading-relaxed mb-4" style="color: rgba(233,228,216,0.9)">
             I am Associate Professor at the <strong class="text-white">University of Oxford</strong>,
             Governing Body Fellow at <strong class="text-white">Wolfson College</strong>,
             Research Affiliate at <strong class="text-white">MIT</strong>, and Member of the
             <strong class="text-white">World Economic Forum Council on Information Integrity</strong>.
+            I am Associate Editor of <strong class="text-white">EPJ Social Data Science</strong> and
+            Member of the Editorial Board of <strong class="text-white">Advances in Psychology</strong>.
           </p>
 
+          <!-- Research -->
           <p class="text-sm leading-relaxed mb-4" style="color: rgba(233,228,216,0.7)">
             My research combines computational social science, large-scale social media analysis,
             online field experiments, and AI/LLM evaluation. I study misleading narratives,
             cross-platform information diffusion, trust and safety, human–AI interaction, and
             interventions to improve the quality of online discourse. My work has been published in
             <em>Nature</em>, <em>PNAS</em>, <em>Nature Communications</em>, and
-            <em>Psychological Science</em>, and supported by the British Academy, Meta, Google,
-            and the UK Department of Science, Innovation &amp; Technology.
+            <em>Psychological Science</em>, and supported by the <strong class="text-white/80">British Academy</strong>,
+            <strong class="text-white/80">Meta</strong>, <strong class="text-white/80">Google</strong>,
+            and the <strong class="text-white/80">UK Department of Science, Innovation &amp; Technology</strong>.
           </p>
 
-          <p class="text-sm leading-relaxed mb-6" style="color: rgba(233,228,216,0.85)">
-            I occasionally advise organisations and start-ups on <strong class="text-white">AI</strong>,
-            <strong class="text-white">information integrity</strong>, and
-            <strong class="text-white">online behaviour</strong> — helping teams with evaluation
-            frameworks, research strategy, and product validation.
-          </p>
+          <!-- Advisory -->
+          <div class="rounded-xl px-4 py-3 mb-6 flex gap-3 items-start" style="background: rgba(176,141,87,0.08); border: 1px solid rgba(176,141,87,0.2);">
+            <!-- briefcase icon -->
+            <svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold)">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+              <line x1="12" y1="12" x2="12" y2="16"/>
+              <line x1="10" y1="14" x2="14" y2="14"/>
+            </svg>
+            <p class="text-sm leading-relaxed" style="color: rgba(233,228,216,0.85)">
+              I occasionally advise organisations and start-ups on
+              <strong class="text-white">AI</strong>,
+              <strong class="text-white">information integrity</strong>,
+              <strong class="text-white">online interventions &amp; experiments</strong>, and
+              <strong class="text-white">social media intelligence analysis</strong> —
+              helping teams with evaluation frameworks, research strategy, and product validation.
+            </p>
+          </div>
 
           <!-- Social links -->
-          <div class="flex flex-wrap gap-3 text-sm">
+          <div class="flex flex-wrap gap-3 text-sm mb-8">
             <a href={SCHOLAR_URL} target="_blank"
                class="flex items-center gap-1.5 px-4 py-2 rounded-full border hover:bg-white/10 transition-colors"
                style="border-color: rgba(176,141,87,0.5); color: var(--color-gold)">
-              <!-- Scholar cap icon -->
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
               Scholar
             </a>
@@ -100,26 +115,21 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
               Bluesky
             </a>
           </div>
+
+          <!-- Contact (inline in About) -->
+          <div class="flex items-center gap-2 text-sm" style="color: rgba(233,228,216,0.55)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(176,141,87,0.7)">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+            <a href="mailto:mohsen.mosleh@oii.ox.ac.uk"
+               class="hover:text-white transition-colors underline underline-offset-2"
+               style="color: var(--color-gold)">
+              mohsen.mosleh@oii.ox.ac.uk
+            </a>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
-
-    <!-- Contact -->
-    <section id="contact" class="pb-20 text-sm" style="color: rgba(233,228,216,0.5)">
-      <h2 class="h-display text-2xl text-white mb-4">Contact</h2>
-      <p>
-        Email:
-        <a
-          href="mailto:mohsen.mosleh@oii.ox.ac.uk"
-          class="hover:text-white transition-colors underline underline-offset-2"
-          style="color: var(--color-gold)"
-        >
-          mohsen.mosleh@oii.ox.ac.uk
-        </a>
-      </p>
     </section>
 
     <!-- Divider -->
@@ -257,6 +267,7 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
       © {new Date().getFullYear()} Mohsen Mosleh
     </footer>
   </main>
+
   <!-- Lightbox overlay -->
   <div
     id="pub-lightbox"
