@@ -1,8 +1,8 @@
 ---
 title: "Asymmetric Polarization: The Perception That Republicans Pose Harm to Disadvantaged Groups Drives Democrats' Greater Dislike of Republicans in Social Contexts"
 authors: ["Krishnan Nair", "Rajen A. Anderson", "Trevor Spelman", "Mohsen Mosleh", "Maryam Kouchaki"]
-venue: "J. Personality & Social Psychology (2025)"
-year: 2025
+venue: "J. Personality & Social Psychology (2026)"
+year: 2026
 featured: true
 journalLogo: "/journals/jpsp.svg"
 infographic: "/infographics/2025-jpsp-asymmetric-polarization.png"
