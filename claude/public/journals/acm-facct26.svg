@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="white"/>
+  <!-- ACM in dark grey, FACCT in bold dark -->
+  <text x="18" y="38" font-family="Arial, sans-serif" font-weight="400" font-size="18" fill="#333">ACM</text>
+  <text x="52" y="38" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="18" fill="#1a1a1a">FACCT</text>
+  <!-- Montreal 2026 in red -->
+  <text x="18" y="56" font-family="Arial, sans-serif" font-weight="600" font-size="13" fill="#CC2020" letter-spacing="1">MONTRÉAL 2026</text>
+  <!-- Red accent line -->
+  <rect x="18" y="62" width="164" height="2.5" fill="#CC2020" rx="1"/>
+</svg>
