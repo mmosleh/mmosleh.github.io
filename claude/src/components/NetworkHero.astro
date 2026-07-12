@@ -1,10 +1,4 @@
 ---
-/**
- * NetworkBackground — calm drifting network, fixed behind the entire page.
- * Deep Oxford-blue canvas with a handful of softly glowing nodes and
- * slowly rewiring edges. Pauses when tab hidden / respects
- * prefers-reduced-motion. Sits at z-index -1 behind all content.
- */
 ---
 
 <!-- Oxford photo base layer -->
@@ -21,12 +15,12 @@
   style="z-index: -15; background: rgba(0, 25, 60, 0.72);"
 ></div>
 
-<!-- Network animation sits on top of the photo at low opacity -->
+<!-- Social media post card animation sits on top at low opacity -->
 <canvas
   id="network-canvas"
   aria-hidden="true"
   class="fixed inset-0 w-full h-full motion-reduce:hidden"
-  style="z-index: -10; opacity: 0.85;"
+  style="z-index: -10; opacity: 0.35;"
 ></canvas>
 
 <!-- Static fallback for reduced motion -->
@@ -40,119 +34,238 @@
   (() => {
     const canvas = document.getElementById("network-canvas");
     if (!canvas) return;
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = canvas.getContext("2d");
-    let width = 0;
-    let height = 0;
+    let W = 0, H = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Oxford palette: gold, teal, terracotta, ivory — against deep Oxford-blue.
-    const NODE_COLORS = ["#b08d57", "#5fa8a8", "#c97b53", "#e9e4d8"];
-    const EDGE_COLOR = "rgba(233, 228, 216, 0.22)";
+    const PALETTE = ["#b08d57", "#5fa8a8", "#c97b53", "#e9e4d8"];
+    const CARD_W = 110, CARD_H = 60;
+    const CARD_COUNT = 14;
+    const DRIFT = 0.14;
+    const CONNECT_DIST = 200;
 
-    const NODE_COUNT = 72;
-    const CONNECT_DIST = 160;
-    const DRIFT_SPEED = 0.12;
+    let cards = [];
+    const rings = [];
+    const children = [];
 
-    const nodes = [];
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-    function rand(min, max) {
-      return min + Math.random() * (max - min);
-    }
-
-    function seedNodes() {
-      nodes.length = 0;
-      for (let i = 0; i < NODE_COUNT; i++) {
-        nodes.push({
-          x: rand(0, width),
-          y: rand(0, height),
-          vx: rand(-DRIFT_SPEED, DRIFT_SPEED),
-          vy: rand(-DRIFT_SPEED, DRIFT_SPEED),
-          r: rand(1.8, 3.6),
-          c: NODE_COLORS[Math.floor(Math.random() * NODE_COLORS.length)],
-        });
-      }
+    function makeCard(x, y) {
+      return {
+        x: x ?? rand(-CARD_W, W),
+        y: y ?? rand(-CARD_H, H),
+        vx: rand(-DRIFT, DRIFT) || DRIFT * 0.4,
+        vy: rand(-DRIFT, DRIFT) || DRIFT * 0.3,
+        color: pick(PALETTE),
+        likes: Math.floor(rand(1, 999)),
+        retweets: Math.floor(rand(0, 400)),
+        nextShare: performance.now() + rand(2500, 7000),
+      };
     }
 
     function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      W = window.innerWidth;
+      H = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (!nodes.length) seedNodes();
+      if (!cards.length) {
+        cards = Array.from({ length: CARD_COUNT }, () => makeCard());
+      }
     }
 
-    function step() {
-      ctx.clearRect(0, 0, width, height);
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.arcTo(x + w, y, x + w, y + r, r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+      ctx.lineTo(x + r, y + h);
+      ctx.arcTo(x, y + h, x, y + h - r, r);
+      ctx.lineTo(x, y + r);
+      ctx.arcTo(x, y, x + r, y, r);
+      ctx.closePath();
+    }
 
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < -10) n.x = width + 10;
-        if (n.x > width + 10) n.x = -10;
-        if (n.y < -10) n.y = height + 10;
-        if (n.y > height + 10) n.y = -10;
+    function drawHeart(cx, cy, s) {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + s);
+      ctx.bezierCurveTo(cx - s * 1.5, cy - s * 0.3, cx - s * 3, cy + s * 0.5, cx, cy + s * 2.2);
+      ctx.bezierCurveTo(cx + s * 3, cy + s * 0.5, cx + s * 1.5, cy - s * 0.3, cx, cy + s);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function drawCard(c, alpha) {
+      const { x, y, color: col } = c;
+      ctx.save();
+
+      // Card bg
+      ctx.globalAlpha = alpha * 0.055;
+      roundRect(x, y, CARD_W, CARD_H, 7);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+
+      // Card border
+      ctx.globalAlpha = alpha * 0.3;
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1;
+      roundRect(x, y, CARD_W, CARD_H, 7);
+      ctx.stroke();
+
+      // Avatar
+      ctx.globalAlpha = alpha * 0.55;
+      ctx.fillStyle = col;
+      ctx.beginPath();
+      ctx.arc(x + 14, y + 14, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Name bar
+      ctx.globalAlpha = alpha * 0.42;
+      roundRect(x + 28, y + 9, CARD_W - 38, 5, 2.5);
+      ctx.fill();
+
+      // Handle bar
+      ctx.globalAlpha = alpha * 0.26;
+      roundRect(x + 28, y + 18, (CARD_W - 38) * 0.58, 4, 2);
+      ctx.fill();
+
+      // Content lines
+      ctx.globalAlpha = alpha * 0.26;
+      roundRect(x + 8, y + 30, CARD_W - 16, 4, 2);
+      ctx.fill();
+      ctx.globalAlpha = alpha * 0.18;
+      roundRect(x + 8, y + 38, (CARD_W - 16) * 0.7, 4, 2);
+      ctx.fill();
+
+      // Heart
+      ctx.globalAlpha = alpha * 0.48;
+      ctx.fillStyle = col;
+      drawHeart(x + 14, y + CARD_H - 11, 2.5);
+
+      // Like count
+      ctx.globalAlpha = alpha * 0.42;
+      ctx.font = "7px system-ui,sans-serif";
+      ctx.fillText(c.likes > 999 ? "1k+" : String(c.likes), x + 23, y + CARD_H - 7);
+
+      // Retweet arrows (two short arcs)
+      ctx.globalAlpha = alpha * 0.42;
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(x + 57, y + CARD_H - 9, 4, Math.PI * 0.7, Math.PI * 1.9, false);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x + 65, y + CARD_H - 9, 4, Math.PI * 1.7, Math.PI * 0.9, false);
+      ctx.stroke();
+
+      // Retweet count
+      ctx.fillStyle = col;
+      ctx.fillText(String(c.retweets), x + 73, y + CARD_H - 7);
+
+      ctx.restore();
+    }
+
+    let rafId = 0, running = false;
+
+    function step(now) {
+      ctx.clearRect(0, 0, W, H);
+
+      // Move cards
+      for (const c of cards) {
+        c.x += c.vx;
+        c.y += c.vy;
+        if (c.x > W + CARD_W) c.x = -CARD_W;
+        if (c.x < -CARD_W) c.x = W + CARD_W;
+        if (c.y > H + CARD_H) c.y = -CARD_H;
+        if (c.y < -CARD_H) c.y = H + CARD_H;
+
+        // Trigger share event
+        if (now > c.nextShare) {
+          c.nextShare = now + rand(3500, 8000);
+          const cx = c.x + CARD_W / 2, cy = c.y + CARD_H / 2;
+          rings.push({ x: cx, y: cy, maxR: rand(55, 110), born: now, color: c.color });
+          const angle = rand(0, Math.PI * 2);
+          const speed = rand(0.7, 1.5);
+          children.push({
+            x: cx - CARD_W / 2, y: cy - CARD_H / 2,
+            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            color: c.color,
+            likes: Math.floor(rand(0, 40)),
+            retweets: Math.floor(rand(0, 15)),
+            born: now, life: rand(2200, 3800),
+          });
+        }
       }
 
-      ctx.lineWidth = 1;
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < CONNECT_DIST * CONNECT_DIST) {
-            const t = 1 - Math.sqrt(d2) / CONNECT_DIST;
-            ctx.strokeStyle = EDGE_COLOR.replace(/[\d.]+\)$/, (m) =>
-              (parseFloat(m) * t).toFixed(3) + ")",
-            );
+      // Dashed connection lines between nearby cards
+      ctx.save();
+      ctx.setLineDash([3, 7]);
+      ctx.lineWidth = 0.7;
+      for (let i = 0; i < cards.length; i++) {
+        for (let j = i + 1; j < cards.length; j++) {
+          const a = cards[i], b = cards[j];
+          const dx = (a.x + CARD_W / 2) - (b.x + CARD_W / 2);
+          const dy = (a.y + CARD_H / 2) - (b.y + CARD_H / 2);
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < CONNECT_DIST) {
+            const t = (1 - d / CONNECT_DIST) * 0.16;
+            ctx.strokeStyle = `rgba(176,141,87,${t.toFixed(3)})`;
             ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
+            ctx.moveTo(a.x + CARD_W / 2, a.y + CARD_H / 2);
+            ctx.lineTo(b.x + CARD_W / 2, b.y + CARD_H / 2);
             ctx.stroke();
           }
         }
       }
+      ctx.setLineDash([]);
+      ctx.restore();
 
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        ctx.fillStyle = n.c;
+      // Draw main cards
+      for (const c of cards) drawCard(c, 0.85);
+
+      // Ripple rings
+      for (let i = rings.length - 1; i >= 0; i--) {
+        const ring = rings[i];
+        const t = (now - ring.born) / 950;
+        if (t > 1) { rings.splice(i, 1); continue; }
+        ctx.save();
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(ring.x, ring.y, ring.maxR * t, 0, Math.PI * 2);
+        ctx.strokeStyle = ring.color;
+        ctx.globalAlpha = (1 - t) * 0.32;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Child (flying) cards
+      for (let i = children.length - 1; i >= 0; i--) {
+        const ch = children[i];
+        const age = now - ch.born;
+        if (age > ch.life) { children.splice(i, 1); continue; }
+        ch.x += ch.vx;
+        ch.y += ch.vy;
+        drawCard(ch, (1 - age / ch.life) * 0.65);
       }
     }
 
-    let rafId = 0;
-    let running = false;
-    function loop() {
-      step();
+    function loop(now) {
+      step(now);
       rafId = requestAnimationFrame(loop);
     }
-    function start() {
-      if (running) return;
-      running = true;
-      loop();
-    }
-    function stop() {
-      running = false;
-      cancelAnimationFrame(rafId);
-    }
+    function start() { if (running) return; running = true; loop(performance.now()); }
+    function stop() { running = false; cancelAnimationFrame(rafId); }
 
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) stop();
-      else start();
+      if (document.hidden) stop(); else start();
     });
-
-    window.addEventListener("resize", () => resize());
+    window.addEventListener("resize", resize);
 
     resize();
     start();
