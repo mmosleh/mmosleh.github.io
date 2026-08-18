@@ -10,82 +10,82 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
 ---
 
 <BaseLayout>
-  <!-- Fixed full-page network background -->
+  <!-- Fixed full-page background -->
   <NetworkHero />
 
   <!-- Sticky nav -->
   <header
     class="sticky top-0 z-10 border-b"
-    style="border-color: rgba(255,255,255,0.08); background-color: rgba(0,33,71,0.82); backdrop-filter: blur(12px);"
+    style="border-color: var(--color-rule); background-color: rgba(244,239,230,0.88); backdrop-filter: blur(12px);"
   >
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="h-display text-lg text-white tracking-tight">Mohsen Mosleh</a>
-      <nav class="flex gap-6 text-sm" style="color: rgba(233,228,216,0.75)">
-        <a href="#about" class="hover:text-white transition-colors">About</a>
-        <a href="#publications" class="hover:text-white transition-colors">Publications</a>
+      <a href="/" class="h-display text-lg tracking-tight" style="color: var(--color-forest)">Mohsen Mosleh</a>
+      <nav class="flex gap-6 text-sm" style="color: var(--color-forest-muted)">
+        <a href="#about" class="hover:text-[var(--color-forest)] transition-colors">about</a>
+        <a href="#publications" class="hover:text-[var(--color-forest)] transition-colors">publications</a>
       </nav>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto px-6">
 
-    <!-- About section (bio + contact merged) -->
+    <!-- About section -->
     <section id="about" class="pt-16 pb-20">
       <div class="flex flex-col sm:flex-row gap-10 items-start">
         <img
           src="/img/mohsen.jpg"
           alt="Portrait of Mohsen Mosleh"
           class="w-36 h-36 rounded-full object-cover shrink-0"
-          style="outline: 2px solid rgba(176,141,87,0.5); outline-offset: 3px;"
+          style="outline: 2px solid var(--color-gold-light); outline-offset: 3px;"
           onerror="this.style.display='none'"
         />
         <div>
           <p class="uppercase tracking-[0.18em] text-xs mb-4" style="color: var(--color-gold)">
             Social Media · Information Integrity · Human–AI Interaction
           </p>
-          <h1 class="h-display text-4xl sm:text-5xl text-white leading-tight mb-6">
+          <h1 class="h-display text-4xl sm:text-5xl leading-tight mb-6" style="color: var(--color-forest)">
             Mohsen Mosleh
           </h1>
 
           <!-- Affiliations -->
-          <p class="text-base leading-relaxed mb-4" style="color: rgba(233,228,216,0.9)">
-            I am Associate Professor at the <strong class="text-white">University of Oxford</strong>,
-            Governing Body Fellow at <strong class="text-white">Wolfson College</strong>,
-            Research Affiliate at <strong class="text-white">MIT</strong>,
-            Director of the <strong class="text-white">Social Data Science MSc</strong> at the Oxford Internet Institute, and Member of the
-            <strong class="text-white">World Economic Forum Council on Information Integrity</strong>.
-            I am Associate Editor of <strong class="text-white">EPJ Social Data Science</strong>,
-            Guest Editor at <strong class="text-white">PNAS Nexus</strong>, and
-            Member of the Editorial Board of <strong class="text-white">Advances in Psychology</strong>.
+          <p class="text-base leading-relaxed mb-4" style="color: var(--color-forest-soft)">
+            I am Associate Professor at the <strong style="color: var(--color-forest)">University of Oxford</strong>,
+            Governing Body Fellow at <strong style="color: var(--color-forest)">Wolfson College</strong>,
+            Research Affiliate at <strong style="color: var(--color-forest)">MIT</strong>,
+            Director of the <strong style="color: var(--color-forest)">Social Data Science MSc</strong> at the Oxford Internet Institute, and Member of the
+            <strong style="color: var(--color-forest)">World Economic Forum Council on Information Integrity</strong>.
+            I am Associate Editor of <strong style="color: var(--color-forest)">EPJ Social Data Science</strong>,
+            Guest Editor at <strong style="color: var(--color-forest)">PNAS Nexus</strong>, and
+            Member of the Editorial Board of <strong style="color: var(--color-forest)">Advances in Psychology</strong>.
           </p>
 
           <!-- Research -->
-          <p class="text-sm leading-relaxed mb-4" style="color: rgba(233,228,216,0.7)">
+          <p class="text-sm leading-relaxed mb-4" style="color: var(--color-forest-muted)">
             My research combines computational social science, large-scale social media analysis,
             online field experiments, and AI/LLM evaluation. I study misleading narratives,
             cross-platform information diffusion, trust and safety, human–AI interaction, and
             interventions to improve the quality of online discourse. My work has been published in
             <em>Nature</em>, <em>PNAS</em>, <em>Nature Communications</em>, and
-            <em>Psychological Science</em>. I was previously a Fellow at the <strong class="text-white/80">Alan Turing Institute</strong>. My work is supported by the <strong class="text-white/80">British Academy</strong>,
-            <strong class="text-white/80">Meta</strong>, <strong class="text-white/80">Google</strong>,
-            and the <strong class="text-white/80">UK Department of Science, Innovation &amp; Technology</strong>.
+            <em>Psychological Science</em>. I was previously a Fellow at the <strong style="color: var(--color-forest-soft)">Alan Turing Institute</strong>.
+            My work is supported by the <strong style="color: var(--color-forest-soft)">British Academy</strong>,
+            <strong style="color: var(--color-forest-soft)">Meta</strong>, <strong style="color: var(--color-forest-soft)">Google</strong>,
+            and the <strong style="color: var(--color-forest-soft)">UK Department of Science, Innovation &amp; Technology</strong>.
           </p>
 
           <!-- Advisory -->
-          <div class="rounded-xl px-4 py-3 mb-6 flex gap-3 items-start" style="background: rgba(176,141,87,0.08); border: 1px solid rgba(176,141,87,0.2);">
-            <!-- briefcase icon -->
+          <div class="rounded-xl px-4 py-3 mb-6 flex gap-3 items-start" style="background: rgba(154,123,63,0.07); border: 1px solid rgba(154,123,63,0.22);">
             <svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold)">
               <rect x="2" y="7" width="20" height="14" rx="2"/>
               <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
               <line x1="12" y1="12" x2="12" y2="16"/>
               <line x1="10" y1="14" x2="14" y2="14"/>
             </svg>
-            <p class="text-sm leading-relaxed" style="color: rgba(233,228,216,0.85)">
+            <p class="text-sm leading-relaxed" style="color: var(--color-forest-soft)">
               I occasionally advise organisations and start-ups on
-              <strong class="text-white">AI</strong>,
-              <strong class="text-white">information integrity</strong>,
-              <strong class="text-white">online interventions &amp; experiments</strong>, and
-              <strong class="text-white">social media intelligence analysis</strong> —
+              <strong style="color: var(--color-forest)">AI</strong>,
+              <strong style="color: var(--color-forest)">information integrity</strong>,
+              <strong style="color: var(--color-forest)">online interventions &amp; experiments</strong>, and
+              <strong style="color: var(--color-forest)">social media intelligence analysis</strong> —
               helping teams with evaluation frameworks, research strategy, and product validation.
             </p>
           </div>
@@ -93,39 +93,39 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
           <!-- Social links -->
           <div class="flex flex-wrap gap-3 text-sm mb-8">
             <a href={SCHOLAR_URL} target="_blank"
-               class="flex items-center gap-1.5 px-4 py-2 rounded-full border hover:bg-white/10 transition-colors"
-               style="border-color: rgba(176,141,87,0.5); color: var(--color-gold)">
+               class="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors hover:bg-[var(--color-forest)] hover:text-[var(--color-cream)] hover:border-[var(--color-forest)]"
+               style="border-color: var(--color-gold-light); color: var(--color-gold)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
               Scholar
             </a>
             <a href="https://www.linkedin.com/in/mohsen-mosleh-51824959/" target="_blank"
-               class="flex items-center gap-1.5 px-4 py-2 rounded-full border hover:bg-white/10 transition-colors"
-               style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.7)">
+               class="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors hover:bg-[var(--color-forest)] hover:text-[var(--color-cream)] hover:border-[var(--color-forest)]"
+               style="border-color: var(--color-rule); color: var(--color-forest-muted)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               LinkedIn
             </a>
             <a href="https://x.com/_mohsen_m" target="_blank"
-               class="flex items-center gap-1.5 px-4 py-2 rounded-full border hover:bg-white/10 transition-colors"
-               style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.7)">
+               class="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors hover:bg-[var(--color-forest)] hover:text-[var(--color-cream)] hover:border-[var(--color-forest)]"
+               style="border-color: var(--color-rule); color: var(--color-forest-muted)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               X / Twitter
             </a>
             <a href="https://bsky.app/profile/mmosleh.bsky.social" target="_blank"
-               class="flex items-center gap-1.5 px-4 py-2 rounded-full border hover:bg-white/10 transition-colors"
-               style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.7)">
+               class="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors hover:bg-[var(--color-forest)] hover:text-[var(--color-cream)] hover:border-[var(--color-forest)]"
+               style="border-color: var(--color-rule); color: var(--color-forest-muted)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 01-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
               Bluesky
             </a>
           </div>
 
-          <!-- Contact (inline in About) -->
-          <div class="flex items-center gap-2 text-sm" style="color: rgba(233,228,216,0.55)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(176,141,87,0.7)">
+          <!-- Email -->
+          <div class="flex items-center gap-2 text-sm" style="color: var(--color-forest-muted)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold)">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="M2 7l10 7 10-7"/>
             </svg>
             <a href="mailto:mohsen.mosleh@oii.ox.ac.uk"
-               class="hover:text-white transition-colors underline underline-offset-2"
+               class="hover:text-[var(--color-forest)] transition-colors underline underline-offset-2"
                style="color: var(--color-gold)">
               mohsen.mosleh@oii.ox.ac.uk
             </a>
@@ -135,15 +135,15 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
     </section>
 
     <!-- Divider -->
-    <div class="w-full h-px mb-20" style="background: rgba(255,255,255,0.08)"></div>
+    <div class="w-full h-px mb-20" style="background: var(--color-rule)"></div>
 
     <!-- Selected publications -->
     <section id="publications" class="pb-20">
       <div class="flex items-baseline justify-between mb-10">
-        <h2 class="h-display text-2xl sm:text-3xl text-white">Selected publications</h2>
+        <h2 class="h-display text-2xl sm:text-3xl" style="color: var(--color-forest)">Selected publications</h2>
         <a href={SCHOLAR_URL}
-           class="text-sm hover:text-white transition-colors"
-           style="color: rgba(233,228,216,0.55)">
+           class="text-sm transition-colors hover:text-[var(--color-forest)]"
+           style="color: var(--color-forest-muted)">
           Full list ↗
         </a>
       </div>
@@ -152,11 +152,11 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
         {pubs.map((p) => (
           <li
             class="flex flex-col rounded-2xl overflow-hidden"
-            style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"
+            style="background-color: var(--color-cream-card); border: 1px solid var(--color-rule);"
           >
             <div class="flex flex-col flex-1 p-5">
 
-              {/* 1. Journal logo + name */}
+              {/* Journal logo + name */}
               <div class="flex items-center gap-2 mb-4">
                 {p.data.journalLogo && (
                   <img
@@ -174,17 +174,17 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
                 </span>
               </div>
 
-              {/* 2. Title */}
-              <h3 class="h-display text-lg text-white leading-snug mb-4">
+              {/* Title */}
+              <h3 class="h-display text-lg leading-snug mb-4" style="color: var(--color-forest)">
                 {p.data.title}
               </h3>
 
               {/* Authors */}
-              <p class="text-xs mb-4" style="color: rgba(233,228,216,0.4)">
+              <p class="text-xs mb-4" style="color: var(--color-forest-muted)">
                 {p.data.authors.map((a, idx) => (
                   <Fragment>
                     {idx > 0 && ", "}
-                    {a.includes("Mosleh") ? <strong class="text-white/70">{a}</strong> : a}
+                    {a.includes("Mosleh") ? <strong style="color: var(--color-forest-soft)">{a}</strong> : a}
                   </Fragment>
                 ))}
               </p>
@@ -194,42 +194,42 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
                 <div class="flex gap-2 text-xs flex-wrap mb-5">
                   {p.data.links.publisher && (
                     <a href={p.data.links.publisher} target="_blank"
-                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors text-white"
-                       style="border-color: rgba(255,255,255,0.25)">
+                       class="px-3 py-1 rounded-full border transition-colors hover:bg-[var(--color-forest)] hover:text-[var(--color-cream)] hover:border-[var(--color-forest)]"
+                       style="border-color: var(--color-forest); color: var(--color-forest)">
                       Publisher ↗
                     </a>
                   )}
                   {p.data.links.doi && (
                     <a href={p.data.links.doi} target="_blank"
-                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
+                       class="px-3 py-1 rounded-full border transition-colors hover:bg-[var(--color-cream-dark)]"
+                       style="border-color: var(--color-rule); color: var(--color-forest-muted)">
                       DOI ↗
                     </a>
                   )}
                   {p.data.links.arxiv && (
                     <a href={p.data.links.arxiv} target="_blank"
-                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
+                       class="px-3 py-1 rounded-full border transition-colors hover:bg-[var(--color-cream-dark)]"
+                       style="border-color: var(--color-rule); color: var(--color-forest-muted)">
                       arXiv ↗
                     </a>
                   )}
                   {p.data.links.pdf && (
                     <a href={p.data.links.pdf} target="_blank"
-                       class="px-3 py-1 rounded-full border hover:bg-white/10 transition-colors"
-                       style="border-color: rgba(255,255,255,0.2); color: rgba(233,228,216,0.65)">
+                       class="px-3 py-1 rounded-full border transition-colors hover:bg-[var(--color-cream-dark)]"
+                       style="border-color: var(--color-rule); color: var(--color-forest-muted)">
                       PDF ↗
                     </a>
                   )}
                 </div>
               )}
 
-              {/* Infographic — zoomed-out thumbnail, click to enlarge */}
+              {/* Infographic thumbnail */}
               {p.data.infographic ? (
                 <button
                   class="pub-lightbox-trigger w-full rounded-xl overflow-hidden cursor-zoom-in mt-auto"
                   data-img={p.data.infographic}
                   data-title={p.data.title}
-                  style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08);"
+                  style="background: var(--color-cream-dark); border: 1px solid var(--color-rule);"
                   aria-label={`View full infographic for ${p.data.title}`}
                 >
                   <img
@@ -239,22 +239,22 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
                     style="max-height: 140px; padding: 8px;"
                     onerror="this.closest('button').style.display='none'"
                   />
-                  <div class="text-center text-xs pb-2" style="color: rgba(233,228,216,0.4)">
+                  <div class="text-center text-xs pb-2" style="color: var(--color-forest-muted)">
                     click to enlarge
                   </div>
                 </button>
               ) : (
                 <div
                   class="w-full rounded-xl flex items-center justify-center mt-auto"
-                  style="height:100px; background: linear-gradient(135deg, rgba(176,141,87,0.08), rgba(95,168,168,0.08)); border: 1px solid rgba(255,255,255,0.06);"
+                  style="height:100px; background: linear-gradient(135deg, rgba(154,123,63,0.08), rgba(61,97,80,0.08)); border: 1px solid var(--color-rule);"
                 >
                   <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                    <circle cx="24" cy="16" r="5" fill="rgba(176,141,87,0.4)"/>
-                    <circle cx="10" cy="34" r="4" fill="rgba(95,168,168,0.4)"/>
-                    <circle cx="38" cy="34" r="4" fill="rgba(201,123,83,0.4)"/>
-                    <line x1="24" y1="21" x2="10" y2="30" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
-                    <line x1="24" y1="21" x2="38" y2="30" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
-                    <line x1="10" y1="34" x2="38" y2="34" stroke="rgba(233,228,216,0.15)" stroke-width="1.5"/>
+                    <circle cx="24" cy="16" r="5" fill="rgba(154,123,63,0.4)"/>
+                    <circle cx="10" cy="34" r="4" fill="rgba(61,97,80,0.4)"/>
+                    <circle cx="38" cy="34" r="4" fill="rgba(30,61,47,0.3)"/>
+                    <line x1="24" y1="21" x2="10" y2="30" stroke="rgba(30,61,47,0.15)" stroke-width="1.5"/>
+                    <line x1="24" y1="21" x2="38" y2="30" stroke="rgba(30,61,47,0.15)" stroke-width="1.5"/>
+                    <line x1="10" y1="34" x2="38" y2="34" stroke="rgba(30,61,47,0.15)" stroke-width="1.5"/>
                   </svg>
                 </div>
               )}
@@ -265,7 +265,7 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
     </section>
 
     <!-- Footer -->
-    <footer class="pb-10 text-xs text-center" style="color: rgba(233,228,216,0.25)">
+    <footer class="pb-10 text-xs text-center" style="color: var(--color-forest-muted)">
       © {new Date().getFullYear()} Mohsen Mosleh
     </footer>
   </main>
@@ -274,13 +274,14 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
   <div
     id="pub-lightbox"
     class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-10"
-    style="background: rgba(0,15,35,0.92); backdrop-filter: blur(8px);"
+    style="background: rgba(30,61,47,0.88); backdrop-filter: blur(8px);"
     role="dialog"
     aria-modal="true"
   >
     <button
       id="pub-lightbox-close"
-      class="absolute top-4 right-5 text-white/60 hover:text-white text-3xl leading-none transition-colors"
+      class="absolute top-4 right-5 text-3xl leading-none transition-colors"
+      style="color: rgba(244,239,230,0.7)"
       aria-label="Close"
     >✕</button>
     <img

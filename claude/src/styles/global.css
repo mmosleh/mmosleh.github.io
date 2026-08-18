@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --color-oxford: #002147;       /* Oxford blue */
-  --color-oxford-light: #1d3a5f;
-  --color-ink: #14213d;
-  --color-ink-soft: #44546b;
-  --color-ink-muted: #6b7a90;
-  --color-paper: #fbfaf7;
-  --color-rule: #dcdfe5;
-  --color-gold: #b08d57;          /* Oxford gold accent */
+  --color-cream:       #f4efe6;   /* warm page background */
+  --color-cream-dark:  #ede6d8;   /* slightly deeper for cards */
+  --color-cream-card:  #eee8dc;
+  --color-forest:      #1e3d2f;   /* primary text / headings */
+  --color-forest-soft: #3d6150;   /* body text */
+  --color-forest-muted:#6a8f7a;   /* secondary / muted */
+  --color-gold:        #9a7b3f;   /* accent (deeper for light bg) */
+  --color-gold-light:  #c9a96e;   /* lighter gold for borders */
+  --color-rule:        rgba(30,61,47,0.12);
 }
 
 html {
@@ -16,8 +17,8 @@ html {
 }
 
 body {
-  background-color: var(--color-oxford);
-  color: var(--color-ink);
+  background-color: var(--color-cream);
+  color: var(--color-forest);
 }
 
 .h-display {
@@ -30,8 +31,8 @@ body {
 }
 
 .link-accent {
-  color: var(--color-oxford);
+  color: var(--color-gold);
 }
 .link-accent:hover {
-  color: var(--color-gold);
+  color: var(--color-forest);
 }
