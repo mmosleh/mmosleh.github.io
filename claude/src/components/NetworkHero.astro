@@ -1,61 +1,123 @@
 ---
 ---
 
+<style>
+  @keyframes slow-pan {
+    0%   { background-position: 52% 50%; }
+    50%  { background-position: 48% 54%; }
+    100% { background-position: 52% 50%; }
+  }
+  @keyframes slow-pan-2 {
+    0%   { background-position: 48% 46%; }
+    50%  { background-position: 52% 50%; }
+    100% { background-position: 48% 46%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .oxford-pan   { animation: none !important; }
+    .oxford-pan-2 { animation: none !important; }
+  }
+</style>
+
 <!-- Cream page background -->
 <div aria-hidden="true" class="fixed inset-0" style="z-index:-30; background:#f4efe6;"></div>
 
-<!--
-  Oxford painting — NOT fixed, sits behind the top of the page only.
-  Uses the existing oxford-bg.jpg with painterly CSS filters.
-  As the user scrolls down, the painting scrolls away naturally,
-  leaving clean cream behind for the publications section.
--->
+<!-- ── HERO background: Radcliffe Camera, higher on page ── -->
 <div
   aria-hidden="true"
-  style="
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 100vh;
-    z-index: -20;
-    overflow: hidden;
-    pointer-events: none;
-  "
+  style="position:absolute; top:0; left:0; right:0; height:110vh; z-index:-20; overflow:hidden; pointer-events:none;"
 >
-  <!-- The actual photo, covering bottom 65% of the viewport height -->
-  <div style="
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 72%;
-    background: url('/img/oxford-bg.jpg') center 55% / cover no-repeat;
-    filter: saturate(0.55) brightness(1.12) contrast(0.78) sepia(0.22);
-  "></div>
+  <div
+    class="oxford-pan"
+    style="
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 85%;
+      background: url('/img/oxford-bg.jpg') 52% 50% / cover no-repeat;
+      filter: saturate(0.52) brightness(1.14) contrast(0.76) sepia(0.20);
+      animation: slow-pan 22s ease-in-out infinite;
+    "
+  ></div>
 
-  <!-- Cream sky fade — strong at top, transparent at bottom -->
+  <!-- Cream sky gradient: solid cream at top, fades to show photo lower down -->
   <div style="
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background: linear-gradient(
       to bottom,
       #f4efe6 0%,
-      #f4efe6 55%,
-      rgba(244,239,230,0.96) 65%,
-      rgba(244,239,230,0.80) 75%,
-      rgba(244,239,230,0.45) 86%,
-      rgba(244,239,230,0.10) 95%,
+      #f4efe6 30%,
+      rgba(244,239,230,0.94) 44%,
+      rgba(244,239,230,0.72) 58%,
+      rgba(244,239,230,0.38) 74%,
+      rgba(244,239,230,0.10) 88%,
       transparent 100%
     );
   "></div>
 
-  <!-- Soft left/right vignette -->
+  <!-- Side vignette -->
   <div style="
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to right,
-      rgba(244,239,230,0.50) 0%,
-      transparent 18%,
-      transparent 82%,
-      rgba(244,239,230,0.50) 100%
-    );
+    position: absolute; inset: 0;
+    background: linear-gradient(to right,
+      rgba(244,239,230,0.45) 0%, transparent 16%,
+      transparent 84%, rgba(244,239,230,0.45) 100%);
   "></div>
 </div>
+
+<!-- ── PUBLICATIONS background: Bodleian, behind that section ── -->
+<div
+  aria-hidden="true"
+  id="pubs-bg"
+  style="position:absolute; left:0; right:0; z-index:-20; overflow:hidden; pointer-events:none; height:900px;"
+>
+  <div
+    class="oxford-pan-2"
+    style="
+      position: absolute;
+      inset: 0;
+      background: url('/img/oxford-bodleian.jpg') 48% 46% / cover no-repeat;
+      filter: saturate(0.48) brightness(1.16) contrast(0.74) sepia(0.24);
+      animation: slow-pan-2 28s ease-in-out infinite;
+    "
+  ></div>
+
+  <!-- Top fade -->
+  <div style="
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      #f4efe6 0%,
+      rgba(244,239,230,0.85) 10%,
+      rgba(244,239,230,0.55) 22%,
+      rgba(244,239,230,0.20) 38%,
+      rgba(244,239,230,0.20) 62%,
+      rgba(244,239,230,0.55) 78%,
+      rgba(244,239,230,0.85) 90%,
+      #f4efe6 100%
+    );
+  "></div>
+  <!-- Side vignette -->
+  <div style="
+    position: absolute; inset: 0;
+    background: linear-gradient(to right,
+      rgba(244,239,230,0.5) 0%, transparent 18%,
+      transparent 82%, rgba(244,239,230,0.5) 100%);
+  "></div>
+</div>
+
+<script is:inline>
+  // Position the publications background to align with the #publications section
+  (() => {
+    function place() {
+      const sec = document.getElementById('publications');
+      const bg  = document.getElementById('pubs-bg');
+      if (!sec || !bg) return;
+      const top = sec.getBoundingClientRect().top + window.scrollY - 80;
+      bg.style.top = top + 'px';
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', place);
+    } else {
+      place();
+    }
+    window.addEventListener('resize', place);
+  })();
+</script>
