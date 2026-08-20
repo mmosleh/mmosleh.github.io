@@ -1,23 +1,100 @@
 ---
 ---
 
-<!-- Soft watercolour-style gradient — fades from muted sage/green at the very top to warm cream -->
+<!-- Painterly landscape background — SVG watercolour hills fading to cream -->
 <div
   aria-hidden="true"
   class="fixed inset-0"
-  style="
-    z-index: -20;
-    background:
-      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(90,130,100,0.22) 0%, transparent 65%),
-      radial-gradient(ellipse 80% 40% at 15% 20%, rgba(120,160,120,0.12) 0%, transparent 55%),
-      radial-gradient(ellipse 60% 30% at 85% 15%, rgba(100,140,100,0.10) 0%, transparent 50%),
-      #f4efe6;
-  "
+  style="z-index: -20; background: #f4efe6;"
 ></div>
 
-<!-- Subtle vignette at the very bottom to ground the page -->
-<div
+<svg
   aria-hidden="true"
-  class="fixed inset-x-0 bottom-0 h-40 pointer-events-none"
-  style="z-index: -18; background: linear-gradient(to top, rgba(180,160,120,0.08), transparent);"
-></div>
+  xmlns="http://www.w3.org/2000/svg"
+  class="fixed inset-x-0 bottom-0"
+  style="z-index: -18; width: 100%; height: 72vh; pointer-events: none;"
+  viewBox="0 0 1440 600"
+  preserveAspectRatio="xMidYMax slice"
+>
+  <defs>
+    <!-- Fade from transparent at top to opaque at bottom -->
+    <linearGradient id="fade-in" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4efe6" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#f4efe6" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Hill colour gradients — watercolour feel -->
+    <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8aab7a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#6d9260" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9fbb8a" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7da068" stop-opacity="0.65"/>
+    </linearGradient>
+    <linearGradient id="hill3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b5c9a0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#93b07e" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="hill4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8d8b4" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#a8c28e" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="treefill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6e3c" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#3a5830" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <!-- Soft blur for painterly effect -->
+    <filter id="blur-soft">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+    <filter id="blur-med">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="blur-far">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+
+  <!-- Background sky wash — very faint warm haze -->
+  <rect width="1440" height="600" fill="#e8e0d0" opacity="0.18"/>
+
+  <!-- Far distance hills (most blurred, lightest) -->
+  <path filter="url(#blur-far)"
+    d="M0,420 C120,380 280,355 440,370 C600,385 720,360 900,365 C1080,370 1200,355 1440,375 L1440,600 L0,600 Z"
+    fill="url(#hill4)"/>
+
+  <!-- Mid-far hills -->
+  <path filter="url(#blur-med)"
+    d="M0,455 C80,430 200,410 360,425 C520,440 640,415 820,420 C1000,425 1140,405 1300,418 C1370,422 1420,415 1440,418 L1440,600 L0,600 Z"
+    fill="url(#hill3)"/>
+
+  <!-- Mid hills -->
+  <path filter="url(#blur-soft)"
+    d="M0,490 C60,468 160,450 300,462 C440,474 560,448 720,455 C880,462 1000,442 1160,452 C1280,460 1380,448 1440,454 L1440,600 L0,600 Z"
+    fill="url(#hill2)"/>
+
+  <!-- Near foreground hills -->
+  <path filter="url(#blur-soft)"
+    d="M0,525 C100,505 240,485 400,498 C560,511 680,490 860,496 C1040,502 1200,482 1360,494 C1400,497 1430,493 1440,494 L1440,600 L0,600 Z"
+    fill="url(#hill1)"/>
+
+  <!-- Tree — oak silhouette, left-of-centre (like eawanders) -->
+  <!-- Trunk -->
+  <rect x="488" y="470" width="12" height="60" rx="4" fill="#4a6e3c" opacity="0.55" filter="url(#blur-soft)"/>
+  <!-- Canopy — overlapping circles for organic look -->
+  <ellipse cx="494" cy="435" rx="52" ry="42" fill="url(#treefill)" filter="url(#blur-soft)"/>
+  <ellipse cx="462" cy="448" rx="32" ry="26" fill="#3f6234" opacity="0.55" filter="url(#blur-soft)"/>
+  <ellipse cx="528" cy="450" rx="28" ry="22" fill="#4a7040" opacity="0.50" filter="url(#blur-soft)"/>
+  <ellipse cx="494" cy="408" rx="36" ry="28" fill="#5a8048" opacity="0.45" filter="url(#blur-soft)"/>
+
+  <!-- Small distant tree cluster, far right -->
+  <rect x="1060" y="494" width="6" height="30" rx="2" fill="#4a6e3c" opacity="0.35" filter="url(#blur-med)"/>
+  <ellipse cx="1063" cy="480" rx="20" ry="18" fill="#4a6e3c" opacity="0.32" filter="url(#blur-med)"/>
+  <rect x="1090" y="498" width="5" height="22" rx="2" fill="#4a6e3c" opacity="0.28" filter="url(#blur-med)"/>
+  <ellipse cx="1093" cy="486" rx="15" ry="13" fill="#4a6e3c" opacity="0.28" filter="url(#blur-med)"/>
+
+  <!-- Cream fade mask over the top — blends into page background -->
+  <rect width="1440" height="600" fill="url(#fade-in)"/>
+</svg>
