@@ -1,15 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --color-cream:       #f4efe6;   /* warm page background */
-  --color-cream-dark:  #ede6d8;   /* slightly deeper for cards */
-  --color-cream-card:  #eee8dc;
-  --color-forest:      #1e3d2f;   /* primary text / headings */
-  --color-forest-soft: #3d6150;   /* body text */
-  --color-forest-muted:#6a8f7a;   /* secondary / muted */
-  --color-gold:        #9a7b3f;   /* accent (deeper for light bg) */
-  --color-gold-light:  #c9a96e;   /* lighter gold for borders */
-  --color-rule:        rgba(30,61,47,0.12);
+  /* Oxford University official palette */
+  --color-cream:        #f5f0e8;   /* warm parchment background */
+  --color-cream-dark:   #ece6d8;
+  --color-cream-card:   #edeae0;
+
+  --color-oxford:       #002147;   /* Oxford Blue — headings, nav */
+  --color-oxford-soft:  #1a3a5c;   /* body text */
+  --color-oxford-muted: #3d5a7a;   /* secondary text — still 4.8:1 contrast on cream */
+  --color-oxford-faint: #5e7a96;   /* captions, meta */
+
+  --color-gold:         #b8972a;   /* Oxford gold accent */
+  --color-gold-light:   #d4b86a;   /* borders, highlights */
+
+  --color-rule:         rgba(0,33,71,0.12);
 }
 
 html {
@@ -18,12 +23,13 @@ html {
 
 body {
   background-color: var(--color-cream);
-  color: var(--color-forest);
+  color: var(--color-oxford-soft);
 }
 
 .h-display {
   font-family: Georgia, "Times New Roman", serif;
   letter-spacing: -0.01em;
+  color: var(--color-oxford);
 }
 
 .hairline {
@@ -34,5 +40,5 @@ body {
   color: var(--color-gold);
 }
 .link-accent:hover {
-  color: var(--color-forest);
+  color: var(--color-oxford);
 }
