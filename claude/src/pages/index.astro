@@ -94,7 +94,7 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
           <div class="flex flex-wrap gap-3 text-sm mb-8">
             <a href={SCHOLAR_URL} target="_blank"
                class="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors hover:bg-[var(--color-oxford)] hover:text-[var(--color-cream)] hover:border-[var(--color-oxford)]"
-               style="border-color: var(--color-gold-light); color: var(--color-gold)">
+               style="border-color: var(--color-oxford); color: var(--color-oxford)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
               Scholar
             </a>
@@ -120,13 +120,13 @@ const pubs = (await getCollection("publications", ({ data }) => !data.draft && d
 
           <!-- Email -->
           <div class="flex items-center gap-2 text-sm" style="color: var(--color-oxford-muted)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-oxford-muted)">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="M2 7l10 7 10-7"/>
             </svg>
             <a href="mailto:mohsen.mosleh@oii.ox.ac.uk"
                class="hover:text-[var(--color-oxford)] transition-colors underline underline-offset-2"
-               style="color: var(--color-gold)">
+               style="color: var(--color-oxford-muted)">
               mohsen.mosleh@oii.ox.ac.uk
             </a>
           </div>
